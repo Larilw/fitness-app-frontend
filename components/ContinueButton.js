@@ -1,24 +1,14 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-export default function WelcomeButton({ label, theme, navigation }) {
-  const onPress = () => {
-    navigation.navigate("CompleteAccount");
-  };
+export default function ContinueButton({ label, theme, onPress }) {
   if (theme === "primary") {
     return (
-      <View style={[styles.welcomebuttonContainer, { borderRadius: 99 }]}>
+      <View style={[styles.continuebuttonContainer, { borderRadius: 99 }]}>
         <Pressable
-          style={[styles.welcomebutton, { backgroundColor: "#FFF" }]}
+          style={[styles.continuebutton, { backgroundColor: "#FFF" }]}
           onPress={onPress}
         >
-          <FontAwesome
-            name="google"
-            size={18}
-            color="#25292e"
-            style={styles.buttonIcon}
-          />
-          <Text style={[styles.welcomebuttonLabel, { color: "#000" }]}>
+          <Text style={[styles.continuebuttonLabel, { color: "#000" }]}>
             {label}
           </Text>
         </Pressable>
@@ -27,16 +17,16 @@ export default function WelcomeButton({ label, theme, navigation }) {
   }
 
   return (
-    <View style={styles.welcomebuttonContainer}>
-      <Pressable style={styles.welcomebutton} onPress={onPress}>
-        <Text style={styles.welcomebuttonLabel}>{label}</Text>
+    <View style={styles.continuebuttonContainer}>
+      <Pressable style={styles.continuebutton} onPress={onPress}>
+        <Text style={styles.continuebuttonLabel}>{label}</Text>
       </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  welcomebuttonContainer: {
+  continuebuttonContainer: {
     width: 315,
     height: 70,
     marginHorizontal: 50,
@@ -45,7 +35,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 3,
   },
-  welcomebutton: {
+  continuebutton: {
     borderRadius: 99,
     width: "100%",
     height: "100%",
@@ -64,7 +54,7 @@ const styles = StyleSheet.create({
   buttonIcon: {
     paddingRight: 8,
   },
-  welcomebuttonLabel: {
+  continuebuttonLabel: {
     color: "#000",
     fontSize: 16,
     alignItems: "center",

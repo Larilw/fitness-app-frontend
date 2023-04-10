@@ -1,14 +1,17 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 
-import LoginButton from '../components/LoginButton';
+import ContinueButton from "../components/ContinueButton";
 
-export default function App({imageSource}) {
+export default function App({ navigation }) {
+  const LoginImage = require("../assets/sittingWoman.png");
+
   return (
     <View style={styles.container}>
-      <Image source={imageSource} style={styles.image} />
-      <Text style={styles.mainText}>Nome do App</Text>
-      <Text style={styles.subtext}>Slogan</Text>
-      <LoginButton label={"Faça login com Google"} theme={'primary'}/>
+      <Image source={LoginImage} style={styles.image} />
+      <Text style={styles.mainText}>Vamos completar seu cadastro</Text>
+      <Text style={styles.subtext}>Isso nos ajuda a definir suas metas</Text>
+      <ContinueButton label={"Continuar"} theme={"primary"} />
     </View>
   );
 }
@@ -16,24 +19,25 @@ export default function App({imageSource}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   image: {
-    top: 50,
+    resizeMode: "contain",
+    top: -130,
     width: 360,
     height: 400,
-    alignItems: 'center'
+    alignItems: "center",
   },
   mainText: {
-    top: -480,
+    top: -170,
     fontSize: 20,
     bottom: 200,
   },
   subtext: {
-    top: -460,
+    top: -160,
     fontSize: 16,
     bottom: 180,
-  }
+  },
 });

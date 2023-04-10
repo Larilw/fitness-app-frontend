@@ -1,17 +1,21 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet, Text, View, Image } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
 
-import LoginButton from '../components/LoginButton';
+import LoginButton from "../components/LoginButton";
 
-export default function App({navigation}) {
-  const LoginImage = require('../assets/group.png');
+export default function App({ navigation }) {
+  const LoginImage = require("../assets/group.png");
 
   return (
     <View style={styles.container}>
       <Image source={LoginImage} style={styles.image} />
       <Text style={styles.mainText}>Nome do App</Text>
       <Text style={styles.subtext}>Slogan</Text>
-      <LoginButton label={"Faça login com Google"} theme={'primary'}/>
+      <LoginButton
+        label={"Faça login com Google"}
+        theme={"primary"}
+        navigation={navigation}
+      />
     </View>
   );
 }
@@ -19,15 +23,15 @@ export default function App({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   image: {
     top: 50,
     width: 360,
     height: 400,
-    alignItems: 'center'
+    alignItems: "center",
   },
   mainText: {
     top: -480,
@@ -38,5 +42,5 @@ const styles = StyleSheet.create({
     top: -460,
     fontSize: 16,
     bottom: 180,
-  }
+  },
 });
