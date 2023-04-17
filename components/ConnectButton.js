@@ -2,13 +2,13 @@ import { StyleSheet, View, Pressable, Text } from "react-native";
 
 export default function ContinueButton({ label, theme, navigation }) {
   const onPress = () => {
-    navigation.navigate("ScaleConnection");
+    navigation.navigate("WeightData");
   };
   if (theme === "primary") {
     return (
       <View style={[styles.continuebuttonContainer, { borderRadius: 99 }]}>
         <Pressable
-          style={[styles.continuebutton, { backgroundColor: "#9DCEFF" }]}
+          style={[styles.continuebutton, { backgroundColor: "#92A3FD" }]}
           onPress={onPress}
         >
           <Text style={[styles.continuebuttonLabel, { color: "#FFF" }]}>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     width: 315,
     height: 70,
     marginHorizontal: 50,
-    bottom: -0,
+    bottom: -120,
     alignItems: "center",
     justifyContent: "center",
     padding: 3,
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     paddingRight: 8,
   },
   continuebuttonLabel: {
-    color: "#FFF",
     fontSize: 16,
     alignItems: "center",
   },

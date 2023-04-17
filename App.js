@@ -9,6 +9,8 @@ const Stack = createNativeStackNavigator();
 import Welcome from "./layouts/Welcome";
 import CompleteAccount from "./layouts/CompleteAccount";
 import Login from "./layouts/Login";
+import ScaleConnection from "./layouts/ScaleConnection";
+import WeightData from "./layouts/WeightData";
 
 //<Welcome imageSource={LogoSource} loginImageSource={LoginImageSource}/>
 //<Login LoginImageSource={LoginImageSource}/>
@@ -29,6 +31,16 @@ export default function App() {
         <Stack.Screen
           name="CompleteAccount"
           component={CompleteAccount}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ScaleConnection"
+          component={ScaleConnection}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="WeightData"
+          component={WeightData}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
