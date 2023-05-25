@@ -11,9 +11,11 @@ import CompleteAccount from "./layouts/CompleteAccount";
 import Login from "./layouts/Login";
 import ScaleConnection from "./layouts/ScaleConnection";
 import WeightData from "./layouts/WeightData";
+import CreateChallenge from "./layouts/CreateChallenge";
+import Home from "./layouts/Home";
+import ChallengeInfo from "./layouts/ChallengeInfo";
+import ChallengeRecords from "./layouts/ChallengeRecords";
 
-//<Welcome imageSource={LogoSource} loginImageSource={LoginImageSource}/>
-//<Login LoginImageSource={LoginImageSource}/>
 export default function App() {
   return (
     <NavigationContainer>
@@ -41,6 +43,26 @@ export default function App() {
         <Stack.Screen
           name="WeightData"
           component={WeightData}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CreateChallenge"
+          component={CreateChallenge}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ChallengeInfo"
+          component={ChallengeInfo}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ChallengeRecords"
+          component={ChallengeRecords}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

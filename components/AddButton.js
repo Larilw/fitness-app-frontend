@@ -1,19 +1,23 @@
-import { StyleSheet, View, Pressable, Text } from "react-native";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
-export default function ContinueButton({ label, theme, navigation }) {
+import { StyleSheet, View, Pressable } from "react-native";
+
+export default function AddButton({ label, theme, navigation }) {
   const onPress = () => {
-    navigation.navigate("CreateChallenge");
+    navigation.navigate("Home");
   };
   if (theme === "primary") {
     return (
       <View style={[styles.continuebuttonContainer, { borderRadius: 99 }]}>
         <Pressable
-          style={[styles.continuebutton, { backgroundColor: "#92A3FD" }]}
+          style={[styles.continuebutton, { backgroundColor: "#c2a1ed" }]}
           onPress={onPress}
         >
-          <Text style={[styles.continuebuttonLabel, { color: "#FFF" }]}>
-            {label}
-          </Text>
+          <FontAwesome5
+            name="plus"
+            solid
+            style={{ color: "#fff", fontSize: 16 }}
+          />
         </Pressable>
       </View>
     );
@@ -30,10 +34,10 @@ export default function ContinueButton({ label, theme, navigation }) {
 
 const styles = StyleSheet.create({
   continuebuttonContainer: {
-    width: 315,
-    height: 70,
+    width: 85,
+    height: 85,
     marginHorizontal: 50,
-    bottom: -60,
+    bottom: -120,
     alignItems: "center",
     justifyContent: "center",
     padding: 3,

@@ -93,11 +93,19 @@ export default function App({ navigation }) {
         </Pressable>
       )}
       <View style={styles.viewInput1}>
-        <TextInput style={styles.inputSmall} placeholder="Peso"></TextInput>
+        <TextInput
+          style={styles.inputSmall}
+          placeholder="Peso"
+          keyboardType="numeric"
+        ></TextInput>
         <Image source={kgImage} style={styles.smallImage} />
       </View>
       <View style={styles.viewInput2}>
-        <TextInput style={styles.inputSmall} placeholder="Altura"></TextInput>
+        <TextInput
+          style={styles.inputSmall}
+          placeholder="Altura"
+          keyboardType="numeric"
+        ></TextInput>
         <Image source={cmImage} style={styles.smallImage} />
       </View>
       <ContinueButton
