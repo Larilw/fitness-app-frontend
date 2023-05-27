@@ -1,13 +1,7 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Pressable,
-} from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import { useState } from "react";
-import DropDownPicker from "react-native-dropdown-picker";
+import { Stack, TextInput, IconButton } from "@react-native-material/core";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import AddButton from "../components/AddButton";
@@ -50,60 +44,67 @@ export default function App({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Criar Desafio</Text>
 
-      <TextInput style={styles.input} placeholder="Título"></TextInput>
+      <Stack spacing={2} style={{ margin: 16 }}>
+        <TextInput
+          label="Título"
+          leading={(props) => <Icon name="account" {...props} />}
+        />
+        <TextInput
+          label="Descrição"
+          leading={(props) => <Icon name="account" {...props} />}
+        />
 
-      <TextInput style={styles.input} placeholder="Descrição"></TextInput>
+        <TextInput
+          label="Quilos a Perder"
+          leading={(props) => <Icon name="account" {...props} />}
+          keyboardType="numeric"
+        />
+        {showPicker1 && (
+          <DateTimePicker
+            mode="date"
+            display="default"
+            value={date1}
+            onChange={onChange1}
+          ></DateTimePicker>
+        )}
+        {!showPicker1 && (
+          <View>
+            <Pressable onPress={toggleDatepicker1}>
+              <TextInput
+                style={styles.inputDate}
+                value={`${date1.getDate().toString()}/${date1
+                  .getMonth()
+                  .toString()}/${date1.getFullYear().toString()}`}
+                placeholderTextColor="#000"
+                editable={false}
+              ></TextInput>
+            </Pressable>
+          </View>
+        )}
 
-      <TextInput
-        style={styles.input}
-        placeholder="Quilos a perder"
-        keyboardType="numeric"
-      ></TextInput>
-      {showPicker1 && (
-        <DateTimePicker
-          mode="date"
-          display="default"
-          value={date1}
-          onChange={onChange1}
-        ></DateTimePicker>
-      )}
-      {!showPicker1 && (
-        <View>
-          <Pressable onPress={toggleDatepicker1}>
-            <TextInput
-              style={styles.inputDate}
-              value={`${date1.getDate().toString()}/${
-                date1.getMonth().toString() + 1
-              }/${date1.getFullYear().toString()}`}
-              placeholderTextColor="#000"
-              editable={false}
-            ></TextInput>
-          </Pressable>
-        </View>
-      )}
-
-      {showPicker2 && (
-        <DateTimePicker
-          mode="date"
-          display="default"
-          value={date2}
-          onChange={onChange2}
-        ></DateTimePicker>
-      )}
-      {!showPicker2 && (
-        <View>
-          <Pressable onPress={toggleDatepicker2}>
-            <TextInput
-              style={styles.inputDate}
-              value={`${date2.getDate().toString()}/${date2
-                .getMonth()
-                .toString()}/${date2.getFullYear().toString()}`}
-              placeholderTextColor="#000"
-              editable={false}
-            ></TextInput>
-          </Pressable>
-        </View>
-      )}
+        {showPicker2 && (
+          <DateTimePicker
+            mode="date"
+            display="default"
+            value={date2}
+            onChange={onChange2}
+          ></DateTimePicker>
+        )}
+        {!showPicker2 && (
+          <View>
+            <Pressable onPress={toggleDatepicker2}>
+              <TextInput
+                style={styles.inputDate}
+                value={`${date2.getDate().toString()}/${date2
+                  .getMonth()
+                  .toString()}/${date2.getFullYear().toString()}`}
+                placeholderTextColor="#000"
+                editable={false}
+              ></TextInput>
+            </Pressable>
+          </View>
+        )}
+      </Stack>
 
       <AddButton theme={"primary"} navigation={navigation} />
     </View>
@@ -112,7 +113,7 @@ export default function App({ navigation }) {
 
 const styles = StyleSheet.create({
   title: {
-    top: -10,
+    top: -160,
     fontSize: 20,
     bottom: 200,
     fontWeight: "bold",
@@ -128,7 +129,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 305,
     height: 60,
-    top: -40,
     padding: 10,
   },
   input: {
@@ -136,7 +136,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 305,
     height: 60,
-    top: -40,
     padding: 10,
+  },
+  inputContainer: {
+    gap: 10,
+    backgroundColor: "#000",
+  },
+  titleInput: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#fff",
   },
 });

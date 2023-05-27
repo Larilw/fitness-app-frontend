@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Switch } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { useState } from "react";
 import ReturnButton from "../components/ReturnButton";
 
@@ -11,32 +11,46 @@ export default function ChallengeInfo({ navigation }) {
 
   const InfoImage = require("../assets/challenge_info.png");
 
+  const toggleChallengeButton = () => {
+    alert("Clicou");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Nome do Desafio</Text>
-      <Image source={InfoImage} style={styles.image} />
-      <Text style={styles.mainText}>Descrição</Text>
-      <Text style={styles.subtext}>
-        Preciso emagrecer para ganhar um pastel.
-      </Text>
+      <View>
+        <Pressable onPress={toggleChallengeButton}>
+          <Image source={InfoImage} style={styles.image} />
+        </Pressable>
+      </View>
+      <View>
+        <Text style={styles.mainText}>Descrição</Text>
+        <Text style={styles.subtext}>
+          Preciso emagrecer para ganhar um pastel.
+        </Text>
+      </View>
       <View style={styles.infoCardContainer}>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoTitle}>Objetivo</Text>
-          <Text style={styles.infoData}>{goal}</Text>
-          <Text style={styles.infoSubtext}>de emagrecimento</Text>
+        <View style={styles.column}>
+          <View style={styles.infoCard}>
+            <Text style={styles.infoTitle}>Objetivo</Text>
+            <Text style={styles.infoData}>{goal}</Text>
+            <Text style={styles.infoSubtext}>de emagrecimento</Text>
+          </View>
+          <View style={styles.infoCard}>
+            <Text style={styles.infoTitle}>Dias Restantes</Text>
+            <Text style={styles.infoData}>{time_remaining}</Text>
+            <Text style={styles.infoSubtext}>de {total_time} dias</Text>
+          </View>
         </View>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoTitle}>Dias Restantes</Text>
-          <Text style={styles.infoData}>{time_remaining}</Text>
-          <Text style={styles.infoSubtext}>de {total_time} dias</Text>
-        </View>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoTitle}>Data de Início</Text>
-          <Text style={styles.infoData}>{begin_date}</Text>
-        </View>
-        <View style={styles.infoCard}>
-          <Text style={styles.infoTitle}>Data de Fim</Text>
-          <Text style={styles.infoData}>{end_date}</Text>
+        <View style={styles.column}>
+          <View style={styles.infoCard}>
+            <Text style={styles.infoTitle}>Data de Início</Text>
+            <Text style={styles.infoData}>{begin_date}</Text>
+          </View>
+          <View style={styles.infoCard}>
+            <Text style={styles.infoTitle}>Data de Fim</Text>
+            <Text style={styles.infoData}>{end_date}</Text>
+          </View>
         </View>
       </View>
     </View>
@@ -52,14 +66,14 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: "contain",
-    top: 150,
+    top: 10,
     width: 300,
-    height: 420,
+    height: 40,
     borderRadius: 40,
     alignItems: "center",
   },
   title: {
-    top: -30,
+    top: -20,
     fontSize: 20,
     bottom: 200,
     fontWeight: "bold",
@@ -77,29 +91,25 @@ const styles = StyleSheet.create({
     color: "#000",
     fontWeight: "300",
   },
-  connectionCard: {
-    alignItems: "stretch",
-    backgroundColor: "#FFF",
-    borderRadius: 10,
-    elevation: 4,
-    width: 325,
+  infoCardContainer: {
+    gap: 10,
+  },
+  infoCard: {
+    elevation: 1,
     height: 80,
-    top: 60,
+    width: 150,
+    backgroundColor: "rgba(240, 248, 255, 1)",
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "baseline",
+    padding: 20,
   },
-  connectionTitle: {
-    left: 20,
-    top: 20,
-    fontSize: 16,
-    bottom: 1,
+  infoTitle: {
+    fontWeight: "bold",
   },
-  connectionSubtext: {
-    left: 20,
-    top: 22,
-    fontSize: 12,
-    bottom: 1,
+  infoData: {
+    color: "#92A3FD",
+    fontWeight: "bold",
   },
-  switch: {
-    right: 20,
-    top: -20,
-  },
+  column: {},
 });

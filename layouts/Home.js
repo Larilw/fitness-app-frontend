@@ -22,6 +22,16 @@ export default function App({ navigation }) {
         navigation={navigation}
         label={"Desafio x"}
       />
+      <CardChallenge
+        theme={"primary"}
+        navigation={navigation}
+        label={"Desafio x"}
+      />
+      <CardChallenge
+        theme={"primary"}
+        navigation={navigation}
+        label={"Desafio x"}
+      />
     </View>
   );
 }

@@ -3,20 +3,20 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 export default function CardChallenge({ label, theme, navigation }) {
   const onPress = () => {
-    navigation.navigate("CreateChallenge");
+    navigation.navigate("ChallengeInfo");
   };
   if (theme === "primary") {
     return (
-      <View style={[styles.cardChallengeContainer, { borderRadius: 99 }]}>
+      <View style={styles.cardChallengeContainer}>
         <Pressable style={styles.cardChallenge} onPress={onPress}>
-          <Text style={[styles.challengeLabel, { color: "#FFF" }]}>
+          <Text style={[styles.challengeLabel, { color: "#000" }]}>
             {label}
           </Text>
           <View style={styles.iconContainer}>
             <FontAwesome5
               name="greater-than"
               solid
-              style={{ color: "#92A3FD", fontSize: 10 }}
+              style={{ color: "#C58BF2", fontSize: 10 }}
             />
           </View>
         </Pressable>
@@ -36,7 +36,7 @@ export default function CardChallenge({ label, theme, navigation }) {
 const styles = StyleSheet.create({
   cardChallengeContainer: {
     width: 315,
-    height: 70,
+    height: 90,
     marginHorizontal: 50,
     bottom: -60,
     alignItems: "center",
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     padding: 3,
   },
   cardChallenge: {
-    borderRadius: 99,
+    borderRadius: 20,
     width: "100%",
     height: "100%",
     alignItems: "center",
@@ -52,26 +52,23 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15,
     flexDirection: "row",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-    elevation: 1,
+    backgroundColor: "#FFF",
+    elevation: 1.5,
   },
   buttonIcon: {
-    paddingRight: 8,
+    paddingRight: 10,
   },
   iconContainer: {
-    width: 40,
-    height: 40,
+    width: 35,
+    height: 35,
     backgroundColor: "#fff",
     borderRadius: 100,
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "#92A3FD",
+    borderColor: "#C58BF2",
     borderWidth: 1,
+  },
+  challengeLabel: {
+    fontWeight: "bold",
   },
 });
