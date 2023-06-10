@@ -34,10 +34,10 @@ export default function AddButton({ label, theme, navigation }) {
 
 const styles = StyleSheet.create({
   continuebuttonContainer: {
+    margin: 20,
     width: 85,
     height: 85,
     marginHorizontal: 50,
-    bottom: -120,
     alignItems: "center",
     justifyContent: "center",
     padding: 3,

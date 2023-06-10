@@ -5,12 +5,12 @@ import LoginButton from "../components/LoginButton";
 
 export default function App({ navigation }) {
   const LoginImage = require("../assets/group.png");
+  const Logo = require("../assets/logo_white.png");
 
   return (
     <View style={styles.container}>
+      <Image source={Logo} style={styles.imageLogo} />
       <Image source={LoginImage} style={styles.image} />
-      <Text style={styles.mainText}>Nome do App</Text>
-      <Text style={styles.subtext}>Slogan</Text>
       <LoginButton
         label={"Faça login com Google"}
         theme={"primary"}
@@ -25,22 +25,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   image: {
-    top: 50,
     width: 360,
     height: 400,
-    alignItems: "center",
   },
   mainText: {
-    top: -480,
     fontSize: 20,
-    bottom: 200,
   },
   subtext: {
-    top: -460,
     fontSize: 16,
-    bottom: 180,
+  },
+  imageLogo: {
+    width: 150,
+    height: 150,
   },
 });

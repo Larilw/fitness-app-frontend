@@ -1,14 +1,9 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Pressable,
-} from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { useState } from "react";
+import { TextInput } from "@react-native-material/core";
 import DropDownPicker from "react-native-dropdown-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 import ContinueButton from "../components/ContinueButton";
 
@@ -17,6 +12,8 @@ export default function App({ navigation }) {
   const kgImage = require("../assets/kgImage.png");
   const cmImage = require("../assets/cmImage.png");
 
+  const [userWeight, setUserWeight] = useState("");
+  const [userHeight, setUserHeight] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -26,7 +23,6 @@ export default function App({ navigation }) {
   ]);
   const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
-  const [dateOfBirth, setDateOfBirth] = useState(null);
 
   const toggleDatepicker = () => {
     setShowPicker(!showPicker);
@@ -83,29 +79,48 @@ export default function App({ navigation }) {
       {!showPicker && (
         <Pressable onPress={toggleDatepicker}>
           <TextInput
+            variant="standard"
             style={styles.inputDate}
-            value={`${date.getDate().toString()}/${
-              date.getMonth().toString() + 1
-            }/${date.getFullYear().toString()}`}
-            placeholderTextColor="#000"
+            inputContainerStyle={{ borderRadius: 15 }}
+            inputStyle={{ borderRadius: 15 }}
+            label="Data de Nascimento"
+            value={`${date.getDate().toString()}/${date
+              .getMonth()
+              .toString()}/${date.getFullYear().toString()}`}
+            onChangeText={setDate}
+            leading={(props) => (
+              <Icon name="calendar-month-outline" {...props} />
+            )}
             editable={false}
-          ></TextInput>
+          />
         </Pressable>
       )}
       <View style={styles.viewInput1}>
         <TextInput
+          variant="standard"
           style={styles.inputSmall}
-          placeholder="Peso"
-          keyboardType="numeric"
-        ></TextInput>
+          inputContainerStyle={{ borderRadius: 15 }}
+          inputStyle={{ borderRadius: 15 }}
+          label="Peso"
+          value={userWeight}
+          keyboardType="number-pad"
+          onChangeText={setUserWeight}
+          leading={(props) => <Icon name="pencil" {...props} />}
+        />
         <Image source={kgImage} style={styles.smallImage} />
       </View>
       <View style={styles.viewInput2}>
         <TextInput
+          variant="standard"
           style={styles.inputSmall}
-          placeholder="Altura"
-          keyboardType="numeric"
-        ></TextInput>
+          inputContainerStyle={{ borderRadius: 15 }}
+          inputStyle={{ borderRadius: 15 }}
+          label="Altura"
+          value={userHeight}
+          keyboardType="number-pad"
+          onChangeText={setUserHeight}
+          leading={(props) => <Icon name="pencil" {...props} />}
+        />
         <Image source={cmImage} style={styles.smallImage} />
       </View>
       <ContinueButton

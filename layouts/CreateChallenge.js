@@ -11,6 +11,9 @@ export default function App({ navigation }) {
   const [date2, setDate2] = useState(new Date());
   const [showPicker1, setShowPicker1] = useState(false);
   const [showPicker2, setShowPicker2] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [weightLoss, setWeightLoss] = useState("");
 
   const toggleDatepicker1 = () => {
     setShowPicker1(!showPicker1);
@@ -44,21 +47,42 @@ export default function App({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.title}>Criar Desafio</Text>
 
-      <Stack spacing={2} style={{ margin: 16 }}>
+      <View style={styles.inputContainer}>
         <TextInput
+          variant="standard"
+          style={styles.input}
+          inputContainerStyle={{ borderRadius: 15 }}
+          inputStyle={{ borderRadius: 15 }}
           label="Título"
-          leading={(props) => <Icon name="account" {...props} />}
+          value={title}
+          onChangeText={setTitle}
+          leading={(props) => <Icon name="pencil" {...props} />}
         />
         <TextInput
+          variant="standard"
+          style={styles.input}
+          inputContainerStyle={{ borderRadius: 15 }}
+          inputStyle={{ borderRadius: 15 }}
           label="Descrição"
-          leading={(props) => <Icon name="account" {...props} />}
+          value={description}
+          onChangeText={setDescription}
+          leading={(props) => (
+            <Icon name="file-document-edit-outline" {...props} />
+          )}
         />
 
         <TextInput
+          variant="standard"
+          keyboardType="number-pad"
+          style={styles.input}
+          inputContainerStyle={{ borderRadius: 15 }}
+          inputStyle={{ borderRadius: 15 }}
           label="Quilos a Perder"
-          leading={(props) => <Icon name="account" {...props} />}
-          keyboardType="numeric"
+          value={weightLoss}
+          onChangeText={setWeightLoss}
+          leading={(props) => <Icon name="weight-kilogram" {...props} />}
         />
+
         {showPicker1 && (
           <DateTimePicker
             mode="date"
@@ -68,18 +92,23 @@ export default function App({ navigation }) {
           ></DateTimePicker>
         )}
         {!showPicker1 && (
-          <View>
-            <Pressable onPress={toggleDatepicker1}>
-              <TextInput
-                style={styles.inputDate}
-                value={`${date1.getDate().toString()}/${date1
-                  .getMonth()
-                  .toString()}/${date1.getFullYear().toString()}`}
-                placeholderTextColor="#000"
-                editable={false}
-              ></TextInput>
-            </Pressable>
-          </View>
+          <Pressable onPress={toggleDatepicker1}>
+            <TextInput
+              variant="standard"
+              style={styles.input}
+              inputContainerStyle={{ borderRadius: 15 }}
+              inputStyle={{ borderRadius: 15 }}
+              label="Data Inicial"
+              value={`${date1.getDate().toString()}/${date1
+                .getMonth()
+                .toString()}/${date1.getFullYear().toString()}`}
+              onChangeText={setDate1}
+              leading={(props) => (
+                <Icon name="calendar-month-outline" {...props} />
+              )}
+              editable={false}
+            />
+          </Pressable>
         )}
 
         {showPicker2 && (
@@ -91,21 +120,25 @@ export default function App({ navigation }) {
           ></DateTimePicker>
         )}
         {!showPicker2 && (
-          <View>
-            <Pressable onPress={toggleDatepicker2}>
-              <TextInput
-                style={styles.inputDate}
-                value={`${date2.getDate().toString()}/${date2
-                  .getMonth()
-                  .toString()}/${date2.getFullYear().toString()}`}
-                placeholderTextColor="#000"
-                editable={false}
-              ></TextInput>
-            </Pressable>
-          </View>
+          <Pressable onPress={toggleDatepicker2}>
+            <TextInput
+              variant="standard"
+              style={styles.input}
+              inputContainerStyle={{ borderRadius: 15 }}
+              inputStyle={{ borderRadius: 15 }}
+              label="Data Final"
+              value={`${date2.getDate().toString()}/${date2
+                .getMonth()
+                .toString()}/${date2.getFullYear().toString()}`}
+              onChangeText={setDate2}
+              leading={(props) => (
+                <Icon name="calendar-month-outline" {...props} />
+              )}
+              editable={false}
+            />
+          </Pressable>
         )}
-      </Stack>
-
+      </View>
       <AddButton theme={"primary"} navigation={navigation} />
     </View>
   );
@@ -113,16 +146,15 @@ export default function App({ navigation }) {
 
 const styles = StyleSheet.create({
   title: {
-    top: -160,
+    margin: 20,
     fontSize: 20,
-    bottom: 200,
     fontWeight: "bold",
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   inputDate: {
     backgroundColor: "#f4f5f5",
@@ -132,15 +164,15 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   input: {
+    marginTop: 15,
     backgroundColor: "#f4f5f5",
-    borderRadius: 10,
-    width: 305,
     height: 60,
-    padding: 10,
+    borderRadius: 20,
+    paddingLeft: 5,
+    justifyContent: "center",
   },
   inputContainer: {
-    gap: 10,
-    backgroundColor: "#000",
+    width: "80%",
   },
   titleInput: {
     fontSize: 20,

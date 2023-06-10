@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, Switch } from "react-native";
 import { useState } from "react";
 import ConnectButton from "../components/ConnectButton";
+import DataButton from "../components/GetDataButton";
 
 export default function ScaleConnection({ navigation }) {
   let connection = "Conectado";
@@ -33,6 +34,11 @@ export default function ScaleConnection({ navigation }) {
         navigation={navigation}
         label={"Conectar"}
       />
+      <DataButton
+        theme={"primary"}
+        navigation={navigation}
+        label={"Obter peso atual"}
+      />
       <Image source={ConnectionImage} style={styles.image} />
     </View>
   );
@@ -46,29 +52,26 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
+    marginTop: 10,
     resizeMode: "contain",
-    top: 150,
     width: 300,
-    height: 420,
+    height: 360,
     borderRadius: 40,
     alignItems: "center",
   },
   title: {
-    top: -30,
+    marginTop: 60,
     fontSize: 20,
-    bottom: 200,
     fontWeight: "bold",
   },
   mainText: {
-    top: 10,
-    fontSize: 20,
-    bottom: 200,
+    margin: 10,
+    fontSize: 30,
     fontWeight: "bold",
   },
   subtext: {
-    top: 25,
+    margin: 10,
     fontSize: 16,
-    bottom: 180,
     color: "#000",
     fontWeight: "300",
   },
@@ -79,22 +82,18 @@ const styles = StyleSheet.create({
     elevation: 4,
     width: 325,
     height: 80,
-    top: 60,
   },
   connectionTitle: {
-    left: 20,
-    top: 20,
+    paddingTop: 20,
+    marginLeft: 10,
     fontSize: 16,
-    bottom: 1,
   },
   connectionSubtext: {
-    left: 20,
-    top: 22,
     fontSize: 12,
-    bottom: 1,
+    marginLeft: 10,
   },
   switch: {
-    right: 20,
-    top: -20,
+    top: -40,
+    marginRight: 10,
   },
 });

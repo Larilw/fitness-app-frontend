@@ -40,42 +40,4 @@ const styles = StyleSheet.create({
     bottom: 200,
     fontWeight: "bold",
   },
-  mainText: {
-    top: 10,
-    fontSize: 20,
-    bottom: 200,
-    fontWeight: "bold",
-  },
-  subtext: {
-    top: 25,
-    fontSize: 16,
-    bottom: 180,
-    color: "#000",
-    fontWeight: "300",
-  },
-  connectionCard: {
-    alignItems: "stretch",
-    backgroundColor: "#FFF",
-    borderRadius: 10,
-    elevation: 4,
-    width: 325,
-    height: 80,
-    top: 60,
-  },
-  connectionTitle: {
-    left: 20,
-    top: 20,
-    fontSize: 16,
-    bottom: 1,
-  },
-  connectionSubtext: {
-    left: 20,
-    top: 22,
-    fontSize: 12,
-    bottom: 1,
-  },
-  switch: {
-    right: 20,
-    top: -20,
-  },
 });
