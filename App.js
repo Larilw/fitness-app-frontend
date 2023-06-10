@@ -6,9 +6,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const Tab = createMaterialBottomTabNavigator();
-const Stack = createNativeStackNavigator();
-
 import Welcome from "./layouts/Welcome";
 import CompleteAccount from "./layouts/CompleteAccount";
 import Login from "./layouts/Login";
@@ -19,59 +16,104 @@ import Home from "./layouts/Home";
 import ChallengeInfo from "./layouts/ChallengeInfo";
 import ChallengeRecords from "./layouts/ChallengeRecords";
 
+const Tab = createMaterialBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const TabNavigator = () => {
+  return (
+    <Tab.Navigator
+      labeled={false}
+      barStyle={{ backgroundColor: "black" }}
+      activeColor="white"
+    >
+      <Tab.Screen
+        name="HomeTab"
+        component={Home} //Home Screen
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ScaleConnectionTab"
+        component={ScaleConnection}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="scale-bathroom"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="CreateChallengeTab"
+        component={CreateChallenge}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="text-box-plus"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="LogoutTab"
+        component={CreateChallenge}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="logout" color={color} size={26} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        labeled={false}
-        barStyle={{ backgroundColor: "black" }}
-        activeColor="white"
-      >
-        <Tab.Screen
-          name="Home"
-          component={Home} //Home Screen
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="home" color={color} size={26} />
-            ),
-          }}
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Welcome"
+          component={Welcome}
+          options={{ headerShown: false }}
         />
-        <Tab.Screen
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={TabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="WeightData"
+          component={WeightData}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ChallengeInfo"
+          component={ChallengeInfo}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ChallengeRecords"
+          component={ChallengeRecords}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="ScaleConnection"
           component={ScaleConnection}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons
-                name="scale-bathroom"
-                color={color}
-                size={26}
-              />
-            ),
-          }}
+          options={{ headerShown: false }}
         />
-        <Tab.Screen
-          name="CreateChallenge"
-          component={CreateChallenge}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons
-                name="text-box-plus"
-                color={color}
-                size={26}
-              />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Logout"
-          component={CreateChallenge}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="logout" color={color} size={26} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

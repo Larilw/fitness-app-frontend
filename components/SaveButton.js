@@ -2,7 +2,7 @@ import { StyleSheet, View, Pressable, Text } from "react-native";
 
 export default function ContinueButton({ label, theme, navigation }) {
   const onPress = () => {
-    navigation.navigate("CreateChallenge");
+    navigation.navigate("Home");
   };
   if (theme === "primary") {
     return (
@@ -30,10 +30,11 @@ export default function ContinueButton({ label, theme, navigation }) {
 
 const styles = StyleSheet.create({
   continuebuttonContainer: {
+    margin: 10,
+    marginBottom: 50,
     width: 315,
     height: 70,
     marginHorizontal: 50,
-    bottom: -60,
     alignItems: "center",
     justifyContent: "center",
     padding: 3,

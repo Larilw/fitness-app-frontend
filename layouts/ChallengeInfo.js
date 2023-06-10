@@ -12,12 +12,17 @@ export default function ChallengeInfo({ navigation }) {
   const InfoImage = require("../assets/challenge_info.png");
 
   const toggleChallengeButton = () => {
-    alert("Clicou");
+    navigation.navigate("ChallengeRecords");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Nome do Desafio</Text>
+      <View style={styles.titleContainer}>
+        <ReturnButton route={"Home"} navigation={navigation} />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>Nome do Desafio</Text>
+        </View>
+      </View>
       <View>
         <Pressable onPress={toggleChallengeButton}>
           <Image source={InfoImage} style={styles.image} />
@@ -74,7 +79,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginTop: 20,
+    paddingRight: 20,
+    textAlign: "center",
     fontSize: 20,
     fontWeight: "bold",
   },
@@ -115,5 +121,12 @@ const styles = StyleSheet.create({
   },
   infoSubtext: {
     color: "#b3b3b3",
+  },
+  titleContainer: {
+    width: "90%",
+    marginTop: 30,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    flexDirection: "row",
   },
 });

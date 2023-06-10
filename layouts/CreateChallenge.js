@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Pressable } from "react-native";
 import { useState } from "react";
-import { Stack, TextInput, IconButton } from "@react-native-material/core";
+import { TextInput, Snackbar, Button } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
@@ -14,6 +14,7 @@ export default function App({ navigation }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [weightLoss, setWeightLoss] = useState("");
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
 
   const toggleDatepicker1 = () => {
     setShowPicker1(!showPicker1);
@@ -45,6 +46,21 @@ export default function App({ navigation }) {
 
   return (
     <View style={styles.container}>
+      {snackBarOpen ? (
+        <Snackbar
+          message="Novo desafio criado com sucesso!"
+          action={
+            <Button
+              variant="text"
+              title="Fechar"
+              color="#BB86FC"
+              compact
+              onPress={() => setSnackBarOpen(false)}
+            />
+          }
+          style={{ position: "absolute", start: 16, end: 16, bottom: 16 }}
+        />
+      ) : null}
       <Text style={styles.title}>Criar Desafio</Text>
 
       <View style={styles.inputContainer}>
@@ -139,7 +155,11 @@ export default function App({ navigation }) {
           </Pressable>
         )}
       </View>
-      <AddButton theme={"primary"} navigation={navigation} />
+      <AddButton
+        theme={"primary"}
+        navigation={navigation}
+        setSnackBarOpen={setSnackBarOpen}
+      />
     </View>
   );
 }

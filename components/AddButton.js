@@ -2,9 +2,9 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 import { StyleSheet, View, Pressable } from "react-native";
 
-export default function AddButton({ label, theme, navigation }) {
+export default function AddButton({ label, theme, setSnackBarOpen }) {
   const onPress = () => {
-    navigation.navigate("Home");
+    setSnackBarOpen(true);
   };
   if (theme === "primary") {
     return (

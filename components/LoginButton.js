@@ -3,7 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 export default function WelcomeButton({ label, theme, navigation }) {
   const onPress = () => {
-    navigation.navigate("CompleteAccount");
+    navigation.navigate("Home");
   };
   if (theme === "primary") {
     return (

@@ -1,13 +1,19 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 
 import SaveButton from "../components/SaveButton";
+import ReturnButton from "../components/ReturnButton";
 
 export default function App({ navigation }) {
-  const WeightImage = require("../assets/jumpingManBlue.png");
+  const WeightImage = require("../assets/jumpingManBlue2.png");
   let x = 50;
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Seu peso atual</Text>
+      <View style={styles.titleContainer}>
+        <ReturnButton route={"ScaleConnection"} navigation={navigation} />
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>Seu peso atual</Text>
+        </View>
+      </View>
       <Text style={styles.mainText}>Seu peso atual é</Text>
       <View style={styles.weightDisplay}>
         <Text style={styles.subtext}>{x}</Text>
@@ -24,43 +30,45 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   image: {
     resizeMode: "contain",
-    top: 90,
     width: 300,
-    height: 420,
+    height: 480,
     borderRadius: 40,
     alignItems: "center",
   },
   title: {
-    top: -10,
+    paddingRight: 20,
+    textAlign: "center",
     fontSize: 20,
-    bottom: 200,
     fontWeight: "bold",
   },
   mainText: {
-    top: 40,
+    marginTop: 10,
     fontSize: 26,
-    bottom: 200,
     fontWeight: "bold",
   },
   subtext: {
-    top: 30,
     fontSize: 120,
-    bottom: 180,
     color: "#c091e6",
     fontWeight: "700",
   },
   subtextAdd: {
-    top: 120,
+    marginTop: 95,
     fontSize: 30,
-    bottom: 180,
     color: "#caaae3",
     fontWeight: "500",
   },
   weightDisplay: {
+    flexDirection: "row",
+  },
+  titleContainer: {
+    width: "90%",
+    marginTop: 30,
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
     flexDirection: "row",
   },
 });
