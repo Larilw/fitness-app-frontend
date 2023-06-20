@@ -5,6 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import "expo-dev-client";
+
+import * as Google from "expo-google-app-auth";
 
 import Welcome from "./layouts/Welcome";
 import CompleteAccount from "./layouts/CompleteAccount";
