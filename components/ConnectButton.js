@@ -1,9 +1,12 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
 
+import RNBluetoothClassic, {
+  BluetoothDevice,
+} from "react-native-bluetooth-classic";
+
 export default function ContinueButton({ label, theme, navigation }) {
   const onPress = () => {
-    //Bluetooth
-    navigation.navigate("WeightData");
+    // RNBluetoothClassic.openBluetoothSettings();
   };
   if (theme === "primary") {
     return (
