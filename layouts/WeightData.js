@@ -1,9 +1,16 @@
 import { StyleSheet, Text, View, Image } from "react-native";
+import { useState } from "react";
 
 import SaveButton from "../components/SaveButton";
 import ReturnButton from "../components/ReturnButton";
 
+import RNBluetoothClassic, {
+  BluetoothDevice,
+} from "react-native-bluetooth-classic";
+
 export default function App({ navigation }) {
+  const [receivedData, setReceivedData] = useState("");
+
   const WeightImage = require("../assets/jumpingManBlue2.png");
   let x = 50;
   return (

@@ -6,7 +6,7 @@ import RNBluetoothClassic, {
 
 export default function ContinueButton({ label, theme, navigation }) {
   const onPress = () => {
-    // RNBluetoothClassic.openBluetoothSettings();
+    RNBluetoothClassic.openBluetoothSettings();
   };
   if (theme === "primary") {
     return (

@@ -14,7 +14,14 @@
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
       },
-      "package": "com.larilw.FitnessApp"
+      "package": "com.larilw.FitnessApp",
+      "permissions": [
+        "BLUETOOTH_ADMIN",
+        "BLUETOOTH_CONNECT",
+        "BLUETOOTH_ADVERTISE",
+        "BLUETOOTH_SCAN",
+        "BLUETOOTH"
+      ]
     },
     "androidNavigationBar": {
       "visible": "sticky-immersive"
@@ -25,6 +32,8 @@
       }
     },
     "plugins": [
+      ["./config_plugins/withModifyBluetoothPermission"],
+
       [
         "with-rn-bluetooth-classic",
         {

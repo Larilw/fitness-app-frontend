@@ -82,6 +82,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+          name="ScaleConnection"
+          component={ScaleConnection}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
           name="Welcome"
           component={Welcome}
           options={{ headerShown: false }}
@@ -109,11 +114,6 @@ export default function App() {
         <Stack.Screen
           name="ChallengeRecords"
           component={ChallengeRecords}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="ScaleConnection"
-          component={ScaleConnection}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -1,14 +1,54 @@
-import { StyleSheet, Text, View, Image, Switch } from "react-native";
-import { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Switch,
+  Platform,
+  PermissionsAndroid,
+} from "react-native";
+import React, { useState, useEffect } from "react";
+//import * as Permissions from "expo-permissions";
+
 import ConnectButton from "../components/ConnectButton";
 import DataButton from "../components/GetDataButton";
 
+import BluetoothSerial, {
+  BluetoothEventEmitter,
+  BluetoothDevice,
+} from "react-native-bluetooth-classic";
+
+const askPermission = async () => {
+  await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.BLUETOOTH_SCAN,
+    {
+      title: "Bluetoth Permission",
+      message: "This app needs access to your bluetooth.",
+      buttonPositive: "OK",
+      buttonNegative: "Cancel",
+    }
+  );
+  await PermissionsAndroid.request(
+    PermissionsAndroid.PERMISSIONS.BLUETOOTH_CONNECT
+  );
+};
 export default function ScaleConnection({ navigation }) {
   let connection = "Conectado";
   const [isEnabled, setIsEnabled] = useState(false);
   const ConnectionImage = require("../assets/cardWomanBlue.png");
 
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  useEffect(() => {
+    askPermission();
+    BluetoothSerial.getBondedDevices().then((devices) => {
+      if (devices && devices.length > 0) {
+        const connectedDevice = devices[0];
+        const { address } = connectedDevice;
+        console.log("Connected device address:", address);
+      }
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -93,7 +133,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   switch: {
-    top: -40,
+    top: -30,
     marginRight: 10,
   },
 });
