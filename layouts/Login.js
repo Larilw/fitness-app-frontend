@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 //        promptAsync={promptAsync}
 
+WebBrowser.maybeCompleteAuthSession();
 export default function App({ navigation }) {
   /*
   const [request, response, promptAsync] = useAuthRequest({

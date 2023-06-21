@@ -36,12 +36,26 @@ export default function ScaleConnection({ navigation }) {
   let connection = "Conectado";
   const [isEnabled, setIsEnabled] = useState(false);
   const ConnectionImage = require("../assets/cardWomanBlue.png");
-
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   useEffect(() => {
     askPermission();
-    BluetoothSerial.getBondedDevices().then((devices) => {
+    BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
+      .then((balanca) => {
+        balanca
+          .connect()
+          .then(() => {
+            balanca
+              .read()
+              .then((leitura) => {
+                console.log(leitura);
+              })
+              .catch((error) => error);
+          })
+          .catch((error) => error);
+      })
+      .catch((error) => error);
+    BluetoothSerial.getConnectedDevices().then((devices) => {
       if (devices && devices.length > 0) {
         const connectedDevice = devices[0];
         const { address } = connectedDevice;

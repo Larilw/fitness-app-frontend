@@ -10,12 +10,9 @@ import { useState } from "react";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 
-import * as WebBrowser from "expo-web-browser";
-
 import AddButton from "../components/AddButton";
 import CardChallenge from "../components/CardChallenge";
 
-WebBrowser.maybeCompleteAuthSession();
 export default function App({ navigation }) {
   const screenWidth = Dimensions.get("window").width;
   let username = "Larissa Wong";

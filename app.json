@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "scheme": "myScheme",
+    "scheme": "fitnessapp",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
@@ -14,7 +14,7 @@
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
       },
-      "package": "com.larilw.FitnessApp",
+      "package": "com.larilw.fitnessapp",
       "permissions": [
         "BLUETOOTH_ADMIN",
         "BLUETOOTH_CONNECT",

@@ -3,6 +3,8 @@ import { StyleSheet, View, Image } from "react-native";
 import WelcomeButton from "../components/WelcomeButton";
 import { NavigationContainer } from "@react-navigation/native";
 
+import * as WebBrowser from "expo-web-browser";
+
 export default function App({ navigation }) {
   const Logo = require("../assets/Logo.png");
   return (
