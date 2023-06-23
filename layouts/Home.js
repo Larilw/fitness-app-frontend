@@ -6,13 +6,17 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 
 import AddButton from "../components/AddButton";
 import CardChallenge from "../components/CardChallenge";
+import challengeClient, { getChallengesByUserId } from "../clients/challenge";
 
+import * as WebBrowser from "expo-web-browser";
+
+WebBrowser.maybeCompleteAuthSession();
 export default function App({ navigation }) {
   const screenWidth = Dimensions.get("window").width;
   let username = "Larissa Wong";
@@ -28,6 +32,12 @@ export default function App({ navigation }) {
     ],
     legend: ["Rainy Days"], // optional
   };
+
+  useEffect(() => {
+    getChallengesByUserId(1)
+      .then()
+      .catch((error) => error);
+  });
 
   const chartConfig = {
     backgroundGradientFrom: "#1E2923",

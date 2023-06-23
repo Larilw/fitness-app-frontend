@@ -82,13 +82,13 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="ScaleConnection"
-          component={ScaleConnection}
+          name="Welcome"
+          component={Welcome}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Welcome"
-          component={Welcome}
+          name="ScaleConnection"
+          component={ScaleConnection}
           options={{ headerShown: false }}
         />
         <Stack.Screen

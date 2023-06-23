@@ -33,10 +33,9 @@ const askPermission = async () => {
   );
 };
 export default function ScaleConnection({ navigation }) {
-  let connection = "Conectado";
+  const [connection, setConnection] = useState("Disconectado");
   const [isEnabled, setIsEnabled] = useState(false);
   const ConnectionImage = require("../assets/cardWomanBlue.png");
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   useEffect(() => {
     askPermission();
@@ -48,9 +47,14 @@ export default function ScaleConnection({ navigation }) {
             balanca
               .read()
               .then((leitura) => {
-                console.log(leitura);
+                setIsEnabled(true);
+                setConnection("Conectado");
               })
-              .catch((error) => error);
+              .catch((error) => {
+                alert("Erro na conexão");
+                setIsEnabled(false);
+                setConnection("Desconectado");
+              });
           })
           .catch((error) => error);
       })
@@ -62,7 +66,7 @@ export default function ScaleConnection({ navigation }) {
         console.log("Connected device address:", address);
       }
     });
-  }, []);
+  }, [isEnabled, connection]);
 
   return (
     <View style={styles.container}>
@@ -79,7 +83,6 @@ export default function ScaleConnection({ navigation }) {
           style={styles.switch}
           trackColor={{ false: "#DDDADA", true: "#d8b3f5" }}
           thumbColor={isEnabled ? "#C58BF2" : "#DDDADA"}
-          onValueChange={toggleSwitch}
           value={isEnabled}
         />
       </View>

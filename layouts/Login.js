@@ -3,25 +3,27 @@ import { SocialIcon } from "react-native-elements";
 import { NavigationContainer } from "@react-navigation/native";
 
 import * as WebBrowser from "expo-web-browser";
-import { useAuthRequest } from "expo-auth-session/providers/google";
+import * as Google from "expo-auth-session/providers/google";
+import * as Linking from "expo-linking";
 
 import LoginButton from "../components/LoginButton";
 import { useEffect } from "react";
 
 //        promptAsync={promptAsync}
 
-WebBrowser.maybeCompleteAuthSession();
 export default function App({ navigation }) {
   /*
   const [request, response, promptAsync] = useAuthRequest({
     expoClientId:
-      "751146957624-s1r8bprihc982tn5c8bej0vsectn4264.apps.googleusercontent.com",
+    "751146957624-s1r8bprihc982tn5c8bej0vsectn4264.apps.googleusercontent.com",
   });
   */
 
-  const [request, response, promptAsync] = useAuthRequest({
+  const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId:
-      "751146957624-m27bff5n7kk5m4mmikjvapp2phsa3tn6.apps.googleusercontent.com",
+      "751146957624-4bl0p4s46p7p9ckkv6kvli7tjku4489e.apps.googleusercontent.com",
+    expoClientId:
+      "751146957624-s1r8bprihc982tn5c8bej0vsectn4264.apps.googleusercontent.com",
   });
 
   const LoginImage = require("../assets/group.png");
@@ -44,7 +46,10 @@ export default function App({ navigation }) {
         onPress={() => {
           promptAsync()
             .then((resposta) => {
-              navigation.navigate("Home");
+              if (resposta.type === "success") {
+                navigation.navigate("Home");
+                console.log(resposta);
+              }
             })
             .catch((error) => error);
         }}
