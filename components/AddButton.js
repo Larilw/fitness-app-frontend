@@ -1,9 +1,21 @@
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 import { StyleSheet, View, Pressable } from "react-native";
+import { postChallenge } from "../clients/challenge";
 
-export default function AddButton({ label, theme, setSnackBarOpen }) {
+export default function AddButton({
+  label,
+  theme,
+  setSnackBarOpen,
+  title,
+  description,
+  dateBegin,
+  dateEnd,
+  weightLoss,
+  userId,
+}) {
   const onPress = () => {
+    postChallenge(title, description, dateBegin, dateEnd, weightLoss, userId);
     setSnackBarOpen(true);
   };
   if (theme === "primary") {

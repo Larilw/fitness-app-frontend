@@ -1,7 +1,9 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
+import { postWeighing } from "../clients/weighing";
 
-export default function ContinueButton({ label, theme, navigation }) {
+export default function ContinueButton({ label, theme, navigation, peso }) {
   const onPress = () => {
+    postWeighing(peso);
     navigation.navigate("Home");
   };
   if (theme === "primary") {

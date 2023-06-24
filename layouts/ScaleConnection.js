@@ -39,6 +39,13 @@ export default function ScaleConnection({ navigation }) {
 
   useEffect(() => {
     askPermission();
+
+    const checkConnection = async () => {
+      const isConnected = await BluetoothSerial.isConnected();
+      setIsEnabled(isConnected);
+      setConnection(isConnected ? "Conectado" : "Desconectado");
+    };
+
     BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
       .then((balanca) => {
         balanca
@@ -47,26 +54,31 @@ export default function ScaleConnection({ navigation }) {
             balanca
               .read()
               .then((leitura) => {
+                console.log("Conectou");
                 setIsEnabled(true);
                 setConnection("Conectado");
               })
               .catch((error) => {
                 alert("Erro na conexão");
-                setIsEnabled(false);
-                setConnection("Desconectado");
               });
           })
-          .catch((error) => error);
+          .catch((error) => {
+            console.error(error);
+          });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    checkConnection()
+      .then((conexao) => {
+        if (conexao === "Conectado") {
+          setIsEnabled(true);
+        } else {
+          setIsEnabled(false);
+        }
       })
       .catch((error) => error);
-    BluetoothSerial.getConnectedDevices().then((devices) => {
-      if (devices && devices.length > 0) {
-        const connectedDevice = devices[0];
-        const { address } = connectedDevice;
-        console.log("Connected device address:", address);
-      }
-    });
-  }, [isEnabled, connection]);
+  }, [connection]);
 
   return (
     <View style={styles.container}>

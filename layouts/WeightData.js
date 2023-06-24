@@ -51,7 +51,12 @@ export default function App({ navigation }) {
         <Text style={styles.subtext}>{receivedData}</Text>
         <Text style={styles.subtextAdd}>KG</Text>
       </View>
-      <SaveButton label={"Salvar"} theme={"primary"} navigation={navigation} />
+      <SaveButton
+        label={"Salvar"}
+        theme={"primary"}
+        navigation={navigation}
+        peso={receivedData}
+      />
       <Image source={WeightImage} style={styles.image} />
     </View>
   );

@@ -8,19 +8,19 @@ import {
 } from "react-native";
 import { useState, useEffect } from "react";
 import { LineChart } from "react-native-chart-kit";
-import { Dimensions } from "react-native";
+import { Dimensions, ScrollView } from "react-native";
 
-import AddButton from "../components/AddButton";
 import CardChallenge from "../components/CardChallenge";
 import challengeClient, { getChallengesByUserId } from "../clients/challenge";
 
 import * as WebBrowser from "expo-web-browser";
+import useChallengeContext from "../hooks/useChallengeContext";
 
 WebBrowser.maybeCompleteAuthSession();
 export default function App({ navigation }) {
+  const challengeContext = useChallengeContext();
   const screenWidth = Dimensions.get("window").width;
   let username = "Larissa Wong";
-
   const data = {
     labels: ["January", "February", "March", "April", "May", "June"],
     datasets: [
@@ -34,10 +34,12 @@ export default function App({ navigation }) {
   };
 
   useEffect(() => {
-    getChallengesByUserId(1)
-      .then()
-      .catch((error) => error);
-  });
+    getChallengesByUserId(2)
+      .then((challenges) => {
+        challengeContext.setChallenges(challenges);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   const chartConfig = {
     backgroundGradientFrom: "#1E2923",
@@ -51,7 +53,7 @@ export default function App({ navigation }) {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.welcomeText}>
         <Text style={styles.title}>Olá,</Text>
         <Text style={styles.username}>{username}</Text>
@@ -65,28 +67,36 @@ export default function App({ navigation }) {
         chartConfig={chartConfig}
         bezier
       />
-      <CardChallenge
-        theme={"primary"}
-        navigation={navigation}
-        label={"Desafio x"}
-      />
-      <CardChallenge
-        theme={"primary"}
-        navigation={navigation}
-        label={"Desafio x"}
-      />
-      <CardChallenge
-        theme={"primary"}
-        navigation={navigation}
-        label={"Desafio x"}
-      />
-    </View>
+      <Text
+        style={{
+          fontWeight: "bold",
+          fontSize: 20,
+          marginTop: 5,
+          marginBottom: 5,
+        }}
+      >
+        Desafios
+      </Text>
+      <View>
+        {challengeContext.challenges.map((challenge, index) => (
+          <CardChallenge
+            key={challenge.id}
+            theme={"primary"}
+            navigation={navigation}
+            label={challenge.titulo}
+            onClick={() => {
+              challengeContext.setSelectedChallenge(index);
+            }}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "flex-start",

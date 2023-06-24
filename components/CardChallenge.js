@@ -1,8 +1,9 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
-export default function CardChallenge({ label, theme, navigation }) {
+export default function CardChallenge({ label, theme, navigation, onClick }) {
   const onPress = () => {
+    onClick();
     navigation.navigate("ChallengeInfo");
   };
   if (theme === "primary") {
@@ -38,7 +39,6 @@ const styles = StyleSheet.create({
     width: 315,
     height: 90,
     marginHorizontal: 50,
-    bottom: -60,
     alignItems: "center",
     justifyContent: "center",
     padding: 3,

@@ -1,17 +1,45 @@
 import axios from "axios";
 
-const baseUrl = "http://192.168.0.120:3000/";
+const baseURL = "http://192.168.1.26:3000/";
 
 const api = axios.create({
-  baseUrl,
+  baseURL,
 });
-
 // Função para obter todos os desafios pelo ID
 export const getChallengesByUserId = (userId) => {
   return api
     .get(`desafios/usuario/${userId}`)
     .then((response) => {
-      console.log(response);
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
+};
+
+// Função para criar desafio
+export const postChallenge = (
+  dataInicio,
+  dataFinal,
+  titulo,
+  descricao,
+  meta,
+  idUsuario
+) => {
+  console.log(dataFinal, dataInicio, titulo, descricao, meta, idUsuario);
+  return api
+    .post(`criarPesagem`, {
+      dataInicio: dataInicio,
+      dataFinal: dataFinal,
+      titulo: titulo,
+      descricao: descricao,
+      meta: meta,
+      idUsuario: idUsuario,
+    })
+    .then((response) => {
+      console.log(response.data);
       return response.data;
     })
     .catch((error) => {

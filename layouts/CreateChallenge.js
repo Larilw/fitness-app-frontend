@@ -115,9 +115,9 @@ export default function App({ navigation }) {
               inputContainerStyle={{ borderRadius: 15 }}
               inputStyle={{ borderRadius: 15 }}
               label="Data Inicial"
-              value={`${date1.getDate().toString()}/${date1
-                .getMonth()
-                .toString()}/${date1.getFullYear().toString()}`}
+              value={`${date1.getDate().toString()}/${
+                date1.getMonth() + 1
+              }/${date1.getFullYear().toString()}`}
               onChangeText={setDate1}
               leading={(props) => (
                 <Icon name="calendar-month-outline" {...props} />
@@ -143,9 +143,9 @@ export default function App({ navigation }) {
               inputContainerStyle={{ borderRadius: 15 }}
               inputStyle={{ borderRadius: 15 }}
               label="Data Final"
-              value={`${date2.getDate().toString()}/${date2
-                .getMonth()
-                .toString()}/${date2.getFullYear().toString()}`}
+              value={`${date2.getDate().toString()}/${
+                date2.getMonth() + 1
+              }/${date2.getFullYear().toString()}`}
               onChangeText={setDate2}
               leading={(props) => (
                 <Icon name="calendar-month-outline" {...props} />
@@ -159,6 +159,13 @@ export default function App({ navigation }) {
         theme={"primary"}
         navigation={navigation}
         setSnackBarOpen={setSnackBarOpen}
+        title={title}
+        description={description}
+        dateBegin={date1}
+        dateEnd={date2}
+        weightLoss={weightLoss}
+        //Arrumar o id depois
+        userId={2}
       />
     </View>
   );

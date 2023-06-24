@@ -1,13 +1,29 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { useState } from "react";
 import ReturnButton from "../components/ReturnButton";
+import useChallengeContext from "../hooks/useChallengeContext";
 
 export default function ChallengeInfo({ navigation }) {
-  let goal = "5" + "KG";
-  let begin_date = "20/05/2023";
-  let end_date = "20/06/2023";
-  let time_remaining = "30";
-  let total_time = "60";
+  const challengeContext = useChallengeContext();
+  const challenge =
+    challengeContext.challenges[challengeContext.selectedChallenge];
+  console.log(challengeContext.selectedChallenge);
+  let begin_date = new Date(Number(challenge.dataInicio));
+  let formattedBeginDate = `${begin_date.getDate()}/${
+    begin_date.getMonth() + 1
+  }/${begin_date.getFullYear()}`;
+  let end_date = new Date(Number(challenge.dataFinal));
+  let formattedEndDate = `${end_date.getDate()}/${
+    end_date.getMonth() + 1
+  }/${end_date.getFullYear()}`;
+  let today = new Date();
+  let time_remaining = Number(
+    (end_date.getTime() - today.getTime()) / (1000 * 3600 * 24) + 1
+  ).toFixed(0);
+
+  let total_time = Number(
+    (end_date.getTime() - begin_date.getTime()) / (1000 * 3600 * 24) + 1
+  ).toFixed(0);
 
   const InfoImage = require("../assets/challenge_info.png");
 
@@ -20,7 +36,7 @@ export default function ChallengeInfo({ navigation }) {
       <View style={styles.titleContainer}>
         <ReturnButton route={"Home"} navigation={navigation} />
         <View style={{ flex: 1 }}>
-          <Text style={styles.title}>Nome do Desafio</Text>
+          <Text style={styles.title}>{challenge.titulo}</Text>
         </View>
       </View>
       <View>
@@ -30,15 +46,13 @@ export default function ChallengeInfo({ navigation }) {
       </View>
       <View>
         <Text style={styles.mainText}>Descrição</Text>
-        <Text style={styles.subtext}>
-          Preciso emagrecer para ganhar um pastel.
-        </Text>
+        <Text style={styles.subtext}>{challenge.descricao}</Text>
       </View>
       <View style={styles.infoCardContainer}>
         <View style={styles.column}>
           <View style={styles.infoCard}>
             <Text style={styles.infoTitle}>Objetivo</Text>
-            <Text style={styles.infoData}>{goal}</Text>
+            <Text style={styles.infoData}>{challenge.meta} KG</Text>
             <Text style={styles.infoSubtext}>de emagrecimento</Text>
           </View>
           <View style={styles.infoCard}>
@@ -50,11 +64,11 @@ export default function ChallengeInfo({ navigation }) {
         <View style={styles.column}>
           <View style={styles.infoCard}>
             <Text style={styles.infoTitle}>Data de Início</Text>
-            <Text style={styles.infoData}>{begin_date}</Text>
+            <Text style={styles.infoData}>{formattedBeginDate}</Text>
           </View>
           <View style={styles.infoCard}>
             <Text style={styles.infoTitle}>Data de Fim</Text>
-            <Text style={styles.infoData}>{end_date}</Text>
+            <Text style={styles.infoData}>{formattedEndDate}</Text>
           </View>
         </View>
       </View>

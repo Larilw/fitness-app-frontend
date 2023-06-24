@@ -9,6 +9,8 @@ import * as Linking from "expo-linking";
 import LoginButton from "../components/LoginButton";
 import { useEffect } from "react";
 
+import clienteLogin from "../clients/login";
+
 //        promptAsync={promptAsync}
 
 export default function App({ navigation }) {
@@ -21,7 +23,7 @@ export default function App({ navigation }) {
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId:
-      "751146957624-4bl0p4s46p7p9ckkv6kvli7tjku4489e.apps.googleusercontent.com",
+      "751146957624-b0m659l5gpf9m257v0qg2234slj90ovk.apps.googleusercontent.com",
     expoClientId:
       "751146957624-s1r8bprihc982tn5c8bej0vsectn4264.apps.googleusercontent.com",
   });
