@@ -21,6 +21,8 @@ export default function ChallengeInfo({ navigation }) {
     (end_date.getTime() - today.getTime()) / (1000 * 3600 * 24) + 1
   ).toFixed(0);
 
+  if (time_remaining < 0) time_remaining = 0;
+
   let total_time = Number(
     (end_date.getTime() - begin_date.getTime()) / (1000 * 3600 * 24) + 1
   ).toFixed(0);

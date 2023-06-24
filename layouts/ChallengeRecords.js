@@ -1,18 +1,40 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { useState } from "react";
 import ReturnButton from "../components/ReturnButton";
+import { LineChart } from "react-native-chart-kit";
+import { Dimensions } from "react-native";
+import { ProgressBar, MD3Colors } from "react-native-paper";
 
-export default function ChallengeInfo({ navigation }) {
-  let goal = "5" + "KG";
-  let begin_date = "20/05/2023";
-  let end_date = "20/06/2023";
-  let time_remaining = "30";
-  let total_time = "60";
-
+export default function ChallengeRecords({ navigation }) {
   const RecordsImage = require("../assets/challenge_records.png");
+  const screenWidth = Dimensions.get("window").width;
+  const [progresso, setProgresso] = useState(100);
 
   const toggleChallengeButton = () => {
     navigation.navigate("ChallengeInfo");
+  };
+
+  const chartConfig = {
+    backgroundGradientFrom: "#1E2923",
+    backgroundGradientFromOpacity: 0,
+    backgroundGradientTo: "#08130D",
+    backgroundGradientToOpacity: 0.5,
+    color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+    strokeWidth: 3, // optional, default 3
+    barPercentage: 0.5,
+    useShadowColorFromDataset: false, // optional
+  };
+
+  const data = {
+    labels: ["January", "February", "March", "April", "May", "June"],
+    datasets: [
+      {
+        data: [20, 45, 28, 80, 99, 43],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+        strokeWidth: 2, // optional
+      },
+    ],
+    legend: ["Rainy Days"], // optional
   };
 
   return (
@@ -28,6 +50,31 @@ export default function ChallengeInfo({ navigation }) {
           <Image source={RecordsImage} style={styles.image} />
         </Pressable>
       </View>
+      <Text style={{ fontSize: 20 }}>Progresso</Text>
+      <View style={styles.progressBarContainer}>
+        <View style={styles.progressBarBackground}>
+          <View
+            style={{
+              height: "100%",
+              backgroundColor: "#c091e6",
+              width: `${progresso}%`,
+              borderRadius: 20,
+            }}
+          />
+        </View>
+        <Text style={{ marginTop: 5, marginLeft: 5, fontSize: 16 }}>
+          {progresso}%
+        </Text>
+      </View>
+      <LineChart
+        style={styles.linechart}
+        data={data}
+        width={screenWidth}
+        height={256}
+        verticalLabelRotation={30}
+        chartConfig={chartConfig}
+        bezier
+      />
     </View>
   );
 }
@@ -98,5 +145,20 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "flex-start",
     flexDirection: "row",
+  },
+  progressBarContainer: {
+    height: "10%",
+    width: "100%",
+    marginTop: 10,
+    marginBottom: 10,
+    padding: "7%",
+    paddingBottom: "14%",
+    paddingTop: "0%",
+    flexDirection: "row",
+  },
+  progressBarBackground: {
+    backgroundColor: "#f4f5f5",
+    borderRadius: 20,
+    width: "90%",
   },
 });
