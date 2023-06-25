@@ -5,6 +5,10 @@ export const ChallengeContext = createContext({});
 export const ChallengeProvider = ({ children }) => {
   const [challenges, setChallenges] = useState([]);
   const [selectedChallenge, setSelectedChallenge] = useState(-1);
+
+  const getSelectedChallenge = () => {
+    return challenges[selectedChallenge];
+  };
   return (
     <ChallengeContext.Provider
       value={{
@@ -12,6 +16,7 @@ export const ChallengeProvider = ({ children }) => {
         setChallenges,
         selectedChallenge,
         setSelectedChallenge,
+        getSelectedChallenge,
       }}
     >
       {children}

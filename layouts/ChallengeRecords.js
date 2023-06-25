@@ -1,14 +1,17 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReturnButton from "../components/ReturnButton";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions } from "react-native";
 import { ProgressBar, MD3Colors } from "react-native-paper";
+import { getWeighingsByChallengeId } from "../clients/weighing";
+import useChallengeContext from "../hooks/useChallengeContext";
 
 export default function ChallengeRecords({ navigation }) {
   const RecordsImage = require("../assets/challenge_records.png");
   const screenWidth = Dimensions.get("window").width;
   const [progresso, setProgresso] = useState(100);
+  const challengeContext = useChallengeContext();
 
   const toggleChallengeButton = () => {
     navigation.navigate("ChallengeInfo");
@@ -25,17 +28,40 @@ export default function ChallengeRecords({ navigation }) {
     useShadowColorFromDataset: false, // optional
   };
 
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June"],
+  const [dataLineChart, setDataLineChart] = useState({
+    labels: [],
     datasets: [
       {
-        data: [20, 45, 28, 80, 99, 43],
-        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-        strokeWidth: 2, // optional
+        data: [0],
+        color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`,
+        strokeWidth: 2,
       },
     ],
-    legend: ["Rainy Days"], // optional
-  };
+    legend: ["Pesagens"],
+  });
+
+  useEffect(() => {
+    console.log("contexto", challengeContext.getSelectedChallenge().id);
+    getWeighingsByChallengeId(challengeContext.getSelectedChallenge().id)
+      .then((weighings) => {
+        const newData = {
+          labels: [],
+          datasets: [
+            {
+              data:
+                weighings.length >= 1
+                  ? weighings.map((weighting) => Number(weighting.peso))
+                  : [0],
+              color: (opacity = 1) => `rgba(88, 134, 209, ${opacity})`,
+              strokeWidth: 2,
+            },
+          ],
+          legend: ["Pesagens"],
+        };
+        setDataLineChart(newData);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -68,7 +94,7 @@ export default function ChallengeRecords({ navigation }) {
       </View>
       <LineChart
         style={styles.linechart}
-        data={data}
+        data={dataLineChart}
         width={screenWidth}
         height={256}
         verticalLabelRotation={30}

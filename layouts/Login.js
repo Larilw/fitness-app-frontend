@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Image } from "react-native";
 import { SocialIcon } from "react-native-elements";
+import "expo-dev-client";
+
 import { NavigationContainer } from "@react-navigation/native";
 
 import * as WebBrowser from "expo-web-browser";

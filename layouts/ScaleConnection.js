@@ -37,14 +37,9 @@ export default function ScaleConnection({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const ConnectionImage = require("../assets/cardWomanBlue.png");
 
+  /*
   useEffect(() => {
     askPermission();
-
-    const checkConnection = async () => {
-      const isConnected = await BluetoothSerial.isConnected();
-      setIsEnabled(isConnected);
-      setConnection(isConnected ? "Conectado" : "Desconectado");
-    };
 
     BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
       .then((balanca) => {
@@ -57,9 +52,10 @@ export default function ScaleConnection({ navigation }) {
                 console.log("Conectou");
                 setIsEnabled(true);
                 setConnection("Conectado");
+                //console.log("scaleconnection", leitura);
               })
               .catch((error) => {
-                alert("Erro na conexão");
+                alert("Erro na conexão", error);
               });
           })
           .catch((error) => {
@@ -69,16 +65,8 @@ export default function ScaleConnection({ navigation }) {
       .catch((error) => {
         console.error(error);
       });
-    checkConnection()
-      .then((conexao) => {
-        if (conexao === "Conectado") {
-          setIsEnabled(true);
-        } else {
-          setIsEnabled(false);
-        }
-      })
-      .catch((error) => error);
-  }, [connection]);
+  }, []);
+  */
 
   return (
     <View style={styles.container}>

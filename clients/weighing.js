@@ -17,11 +17,34 @@ export const postWeighing = (peso) => {
   return api
     .post(`criarPesagem`, { dataPesagem: dataPesagem, peso: peso })
     .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+// Função para obter todas as pesagens pelo ID do usuário
+export const getWeighingsByUserId = (userId) => {
+  return api
+    .get(`pesagens/usuario/${userId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+// Função para obter todas as pesagens pelo ID do desafio
+export const getWeighingsByChallengeId = (challengeId) => {
+  return api
+    .get(`pesagens/desafio/${challengeId}`)
+    .then((response) => {
       console.log(response.data);
       return response.data;
     })
     .catch((error) => {
-      console.log(JSON.stringify(error));
       return error;
     });
 };
