@@ -1,9 +1,12 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
 import { postWeighing } from "../clients/weighing";
+import useUserContext from "../hooks/useUserContext";
 
 export default function ContinueButton({ label, theme, navigation, peso }) {
+  const userContext = useUserContext();
   const onPress = () => {
-    postWeighing(peso);
+    alert("Nova pesagem adicionada com sucesso!");
+    postWeighing(peso, userContext.user.id);
     navigation.navigate("Home");
   };
   if (theme === "primary") {

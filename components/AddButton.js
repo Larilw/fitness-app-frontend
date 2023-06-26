@@ -15,7 +15,7 @@ export default function AddButton({
   userId,
 }) {
   const onPress = () => {
-    postChallenge(title, description, dateBegin, dateEnd, weightLoss, userId);
+    postChallenge(dateEnd, dateBegin, title, description, weightLoss, userId);
     setSnackBarOpen(true);
   };
   if (theme === "primary") {

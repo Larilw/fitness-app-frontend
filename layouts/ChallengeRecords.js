@@ -6,6 +6,7 @@ import { Dimensions } from "react-native";
 import { ProgressBar, MD3Colors } from "react-native-paper";
 import { getWeighingsByChallengeId } from "../clients/weighing";
 import useChallengeContext from "../hooks/useChallengeContext";
+import useUserContext from "../hooks/useUserContext";
 
 export default function ChallengeRecords({ navigation }) {
   const RecordsImage = require("../assets/challenge_records.png");
@@ -41,9 +42,19 @@ export default function ChallengeRecords({ navigation }) {
   });
 
   useEffect(() => {
-    console.log("contexto", challengeContext.getSelectedChallenge().id);
     getWeighingsByChallengeId(challengeContext.getSelectedChallenge().id)
       .then((weighings) => {
+        if (weighings.length >= 2) {
+          const pesagensOrdenadas = weighings.sort((a, b) => {
+            return a.dataPesagem - b.dataPesagem;
+          });
+          const ultimaPesagem = pesagensOrdenadas[pesagensOrdenadas.length - 1];
+          const primeiraPesagem = pesagensOrdenadas[0];
+          const emagrecido = primeiraPesagem.peso - ultimaPesagem.peso;
+          const meta = challengeContext.getSelectedChallenge().meta;
+          const quilosEmagrecer = primeiraPesagem.peso - meta;
+          setProgresso(Math.round((emagrecido * 100) / quilosEmagrecer));
+        } else setProgresso(0);
         const newData = {
           labels: [],
           datasets: [

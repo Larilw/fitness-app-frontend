@@ -36,7 +36,7 @@ export default function CardChallenge({ label, theme, navigation, onClick }) {
 
 const styles = StyleSheet.create({
   cardChallengeContainer: {
-    width: 315,
+    width: 360,
     height: 90,
     marginHorizontal: 50,
     alignItems: "center",

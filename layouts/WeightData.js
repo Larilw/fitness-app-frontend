@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { useState, useEffect, useRef } from "react";
 
 import SaveButton from "../components/SaveButton";
@@ -28,7 +28,7 @@ export default function App({ navigation }) {
           }
         });
       })
-      .catch((error) => console.error(error));
+      .catch((error) => console.log(error));
   }, []);
 
   useEffect(() => {
@@ -48,16 +48,22 @@ export default function App({ navigation }) {
         <Text style={styles.subtext}>{receivedData}</Text>
         <Text style={styles.subtextAdd}>KG</Text>
       </View>
-      <FAB
-        variant="extended"
-        label="Coletar novamente"
+      <Pressable
+        style={{
+          backgroundColor: "#92A3FD",
+          marginBottom: 10,
+          width: "80%",
+          height: "8%",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 50,
+        }}
         onPress={() => {
           setWasRead(false);
         }}
-        color="#92A3FD"
-        tintColor="white"
-        style={{ marginBottom: 10 }}
-      />
+      >
+        <Text style={{ color: "white", fontSize: 15 }}>Coletar novamente</Text>
+      </Pressable>
       <SaveButton
         label={"Salvar"}
         theme={"primary"}

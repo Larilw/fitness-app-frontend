@@ -6,20 +6,20 @@ const api = axios.create({
   baseURL,
 });
 // Função para salvar pesagem
-//Arrumar no back
-export const postWeighing = (peso) => {
-  let day = new Date().getDate(); //Current Day
-  let month = new Date().getMonth() + 1; //Current Month
-  let year = new Date().getFullYear(); //Current Year
+export const postWeighing = (peso, idUsuario) => {
+  let date = new Date().getTime();
 
-  let dataPesagem = month + "-" + day + "-" + year;
-  console.log(dataPesagem);
+  const data = {
+    dataPesagem: date,
+    peso: Number(peso),
+  };
   return api
-    .post(`criarPesagem`, { dataPesagem: dataPesagem, peso: peso })
+    .post(`criarPesagem/${idUsuario}/`, data)
     .then((response) => {
       return response.data;
     })
     .catch((error) => {
+      console.log(error);
       return error;
     });
 };
@@ -41,7 +41,6 @@ export const getWeighingsByChallengeId = (challengeId) => {
   return api
     .get(`pesagens/desafio/${challengeId}`)
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((error) => {

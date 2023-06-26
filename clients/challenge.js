@@ -26,18 +26,17 @@ export const postChallenge = (
   meta,
   idUsuario
 ) => {
-  console.log(dataFinal, dataInicio, titulo, descricao, meta, idUsuario);
+  const data = {
+    dataInicio: dataInicio,
+    dataFinal: dataFinal,
+    titulo: titulo,
+    descricao: descricao,
+    meta: meta,
+    idUsuario: idUsuario,
+  };
   return api
-    .post(`criarPesagem`, {
-      dataInicio: dataInicio,
-      dataFinal: dataFinal,
-      titulo: titulo,
-      descricao: descricao,
-      meta: meta,
-      idUsuario: idUsuario,
-    })
+    .post(`criarDesafio/`, data)
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((error) => {

@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   continuebuttonContainer: {
     marginTop: 10,
     width: 315,
-    height: 70,
+    height: "7%",
     marginHorizontal: 50,
     alignItems: "center",
     justifyContent: "center",

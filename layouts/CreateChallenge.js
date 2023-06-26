@@ -93,7 +93,7 @@ export default function App({ navigation }) {
           style={styles.input}
           inputContainerStyle={{ borderRadius: 15 }}
           inputStyle={{ borderRadius: 15 }}
-          label="Quilos a Perder"
+          label="Peso desejado"
           value={weightLoss}
           onChangeText={setWeightLoss}
           leading={(props) => <Icon name="weight-kilogram" {...props} />}
@@ -161,10 +161,10 @@ export default function App({ navigation }) {
         setSnackBarOpen={setSnackBarOpen}
         title={title}
         description={description}
-        dateBegin={date1}
-        dateEnd={date2}
-        weightLoss={weightLoss}
+        dateBegin={date1.getTime()}
+        dateEnd={date2.getTime()}
         //Arrumar o id depois
+        weightLoss={weightLoss}
         userId={2}
       />
     </View>

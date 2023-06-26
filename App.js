@@ -20,6 +20,7 @@ import ChallengeInfo from "./layouts/ChallengeInfo";
 import ChallengeRecords from "./layouts/ChallengeRecords";
 import { ChallengeProvider } from "./contexts/ChallengeContext";
 import { WeightContextProvider } from "./contexts/WeighingContext";
+import { UserContextProvider } from "./contexts/UserContext";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -81,49 +82,51 @@ const TabNavigator = () => {
 
 export default function App() {
   return (
-    <ChallengeProvider>
-      <WeightContextProvider>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={TabNavigator}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Welcome"
-              component={Welcome}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ScaleConnection"
-              component={ScaleConnection}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="WeightData"
-              component={WeightData}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ChallengeInfo"
-              component={ChallengeInfo}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="ChallengeRecords"
-              component={ChallengeRecords}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </WeightContextProvider>
-    </ChallengeProvider>
+    <UserContextProvider>
+      <ChallengeProvider>
+        <WeightContextProvider>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Home"
+                component={TabNavigator}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Welcome"
+                component={Welcome}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ScaleConnection"
+                component={ScaleConnection}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="WeightData"
+                component={WeightData}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ChallengeInfo"
+                component={ChallengeInfo}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="ChallengeRecords"
+                component={ChallengeRecords}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </WeightContextProvider>
+      </ChallengeProvider>
+    </UserContextProvider>
   );
 }
 

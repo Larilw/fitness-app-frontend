@@ -6,6 +6,7 @@ import {
   Switch,
   Platform,
   PermissionsAndroid,
+  Pressable,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 //import * as Permissions from "expo-permissions";
@@ -33,40 +34,25 @@ const askPermission = async () => {
   );
 };
 export default function ScaleConnection({ navigation }) {
-  const [connection, setConnection] = useState("Disconectado");
+  const [connection, setConnection] = useState("Desconectado");
   const [isEnabled, setIsEnabled] = useState(false);
   const ConnectionImage = require("../assets/cardWomanBlue.png");
 
-  /*
   useEffect(() => {
-    askPermission();
-
     BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
-      .then((balanca) => {
-        balanca
-          .connect()
-          .then(() => {
-            balanca
-              .read()
-              .then((leitura) => {
-                console.log("Conectou");
-                setIsEnabled(true);
-                setConnection("Conectado");
-                //console.log("scaleconnection", leitura);
-              })
-              .catch((error) => {
-                alert("Erro na conexão", error);
-              });
-          })
-          .catch((error) => {
-            console.error(error);
-          });
+      /*  .then((balanca) => {
+        alert("Conectou");
+        setIsEnabled(true);
+        setConnection("Conectado");
       })
-      .catch((error) => {
-        console.error(error);
-      });
+      */
+      .catch((error) => console.log(error));
+    BluetoothSerial.onBluetoothDisabled(() => {
+      console.log("Desconectou");
+      //setIsEnabled(false);
+      //setConnection("Desconectado");
+    });
   }, []);
-  */
 
   return (
     <View style={styles.container}>
@@ -89,8 +75,37 @@ export default function ScaleConnection({ navigation }) {
       <ConnectButton
         theme={"primary"}
         navigation={navigation}
-        label={"Conectar"}
+        label={"Selecionar Dispositivo"}
       />
+      <Pressable
+        style={{
+          backgroundColor: "#92A3FD",
+          marginBottom: 10,
+          marginTop: 10,
+          width: "80%",
+          height: "6%",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 50,
+        }}
+        onPress={() => {
+          BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
+            .then((balanca) => {
+              setIsEnabled(true);
+              setConnection("Conectado");
+            })
+
+            .catch((error) => {
+              alert(
+                "Não foi possível conectar, verifique novamente se o dispositivo está pareado no bluetooth"
+              );
+              setIsEnabled(false);
+              setConnection("Desconectado");
+            });
+        }}
+      >
+        <Text style={{ color: "white", fontSize: 16 }}>Conectar</Text>
+      </Pressable>
       <DataButton
         theme={"primary"}
         navigation={navigation}
@@ -122,7 +137,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   mainText: {
-    margin: 10,
+    margin: 5,
     fontSize: 30,
     fontWeight: "bold",
   },
