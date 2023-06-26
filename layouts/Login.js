@@ -51,7 +51,7 @@ export default function App({ navigation }) {
           promptAsync()
             .then((resposta) => {
               if (resposta.type === "success") {
-                navigation.navigate("Home");
+                navigation.navigate("CompleteAccount");
                 console.log(resposta);
               }
             })

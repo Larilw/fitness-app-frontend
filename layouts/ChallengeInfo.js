@@ -2,12 +2,13 @@ import { StyleSheet, Text, View, Image, Pressable } from "react-native";
 import { useState } from "react";
 import ReturnButton from "../components/ReturnButton";
 import useChallengeContext from "../hooks/useChallengeContext";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { deleteChallengeById } from "../clients/challenge";
 
 export default function ChallengeInfo({ navigation }) {
   const challengeContext = useChallengeContext();
   const challenge =
     challengeContext.challenges[challengeContext.selectedChallenge];
-  console.log(challengeContext.selectedChallenge);
   let begin_date = new Date(Number(challenge.dataInicio));
   let formattedBeginDate = `${begin_date.getDate()}/${
     begin_date.getMonth() + 1
@@ -74,6 +75,27 @@ export default function ChallengeInfo({ navigation }) {
           </View>
         </View>
       </View>
+      <Pressable
+        style={{
+          backgroundColor: "#92A3FD",
+          marginBottom: 10,
+          marginTop: 10,
+          width: "20%",
+          height: "6%",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 50,
+        }}
+        onPress={() => {
+          deleteChallengeById(challenge.id);
+          navigation.navigate("Home");
+        }}
+      >
+        <FontAwesome5
+          name="trash-alt"
+          style={{ color: "#000", fontSize: 20 }}
+        />
+      </Pressable>
     </View>
   );
 }

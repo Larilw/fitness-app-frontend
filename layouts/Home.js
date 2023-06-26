@@ -46,6 +46,7 @@ export default function App({ navigation }) {
   const challengeContext = useChallengeContext();
   const weighingContext = useWeighingContext();
   const userContext = useUserContext();
+  const userId = 2;
   const screenWidth = Dimensions.get("window").width;
   let username = "Larissa Wong";
   const [imc, setImc] = useState(0);
@@ -95,13 +96,17 @@ export default function App({ navigation }) {
   });
 
   useEffect(() => {
-    getChallengesByUserId(2)
+    //console.log("Carregou");
+    if (challengeContext.newChallenge) {
+      challengeContext.setNewChallenge(false);
+    }
+    getChallengesByUserId(userId)
       .then((challenges) => {
         challengeContext.setChallenges(challenges);
       })
       .catch((error) => console.error(error));
 
-    getWeighingsByUserId(2)
+    getWeighingsByUserId(userId)
       .then((weighings) => {
         weighingContext.setWeighings(weighings);
         const pesagensOrdenadas = weighings.sort((a, b) => {
@@ -140,7 +145,7 @@ export default function App({ navigation }) {
         setDataLineChart(newData);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [challengeContext.newChallenge]);
 
   const lineChartConfig = {
     backgroundGradientFrom: "#fff",

@@ -12,8 +12,10 @@ export default function App({ navigation }) {
   const kgImage = require("../assets/kgImage.png");
   const cmImage = require("../assets/cmImage.png");
 
-  const [userWeight, setUserWeight] = useState("");
-  const [userHeight, setUserHeight] = useState("");
+  const [userWeight, setUserWeight] = useState();
+  const [userHeight, setUserHeight] = useState();
+  const [userDate, setUserDate] = useState(new Date());
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
   const [items, setItems] = useState([
@@ -21,7 +23,6 @@ export default function App({ navigation }) {
     { label: "Masculino", value: "masculino" },
     { label: "Prefiro não informar", value: "naoInformado" },
   ]);
-  const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
 
   const toggleDatepicker = () => {
@@ -31,7 +32,7 @@ export default function App({ navigation }) {
   const onChange = ({ type }, selectedDate) => {
     if (type == "set") {
       const currentDate = selectedDate;
-      setDate(currentDate);
+      setUserDate(currentDate);
       toggleDatepicker();
     } else {
       toggleDatepicker();
@@ -72,7 +73,7 @@ export default function App({ navigation }) {
         <DateTimePicker
           mode="date"
           display="default"
-          value={date}
+          value={userDate}
           onChange={onChange}
         ></DateTimePicker>
       )}
@@ -84,10 +85,10 @@ export default function App({ navigation }) {
             inputContainerStyle={{ borderRadius: 15 }}
             inputStyle={{ borderRadius: 15 }}
             label="Data de Nascimento"
-            value={`${date.getDate().toString()}/${date
-              .getMonth()
-              .toString()}/${date.getFullYear().toString()}`}
-            onChangeText={setDate}
+            value={`${userDate.getDate().toString()}/${
+              userDate.getMonth() + 1
+            }/${userDate.getFullYear().toString()}`}
+            onChangeText={setUserDate}
             leading={(props) => (
               <Icon name="calendar-month-outline" {...props} />
             )}
@@ -127,6 +128,10 @@ export default function App({ navigation }) {
         label={"Avançar"}
         theme={"primary"}
         navigation={navigation}
+        gender={value}
+        userDate={userDate.getTime()}
+        userWeight={userWeight}
+        userHeight={userHeight}
       />
     </View>
   );

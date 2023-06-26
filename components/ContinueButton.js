@@ -1,8 +1,18 @@
 import { StyleSheet, View, Pressable, Text } from "react-native";
+import { postUser } from "../clients/user";
 
-export default function ContinueButton({ label, theme, navigation }) {
+export default function ContinueButton({
+  label,
+  theme,
+  navigation,
+  gender,
+  userDate,
+  userWeight,
+  userHeight,
+}) {
   const onPress = () => {
-    navigation.navigate("ScaleConnection");
+    postUser(gender, userDate, userWeight, userHeight);
+    navigation.navigate("Home");
   };
   if (theme === "primary") {
     return (

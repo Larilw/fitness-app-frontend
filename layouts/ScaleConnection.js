@@ -38,22 +38,6 @@ export default function ScaleConnection({ navigation }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const ConnectionImage = require("../assets/cardWomanBlue.png");
 
-  useEffect(() => {
-    BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
-      /*  .then((balanca) => {
-        alert("Conectou");
-        setIsEnabled(true);
-        setConnection("Conectado");
-      })
-      */
-      .catch((error) => console.log(error));
-    BluetoothSerial.onBluetoothDisabled(() => {
-      console.log("Desconectou");
-      //setIsEnabled(false);
-      //setConnection("Desconectado");
-    });
-  }, []);
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Balança Inteligente</Text>
@@ -132,7 +116,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginTop: 60,
+    marginTop: 90,
     fontSize: 20,
     fontWeight: "bold",
   },

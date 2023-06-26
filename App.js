@@ -113,6 +113,11 @@ export default function App() {
                 options={{ headerShown: false }}
               />
               <Stack.Screen
+                name="CompleteAccount"
+                component={CompleteAccount}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
                 name="ChallengeInfo"
                 component={ChallengeInfo}
                 options={{ headerShown: false }}

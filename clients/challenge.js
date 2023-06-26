@@ -1,4 +1,5 @@
 import axios from "axios";
+import useChallengeContext from "../hooks/useChallengeContext";
 
 const baseURL = "http://192.168.1.26:3000/";
 
@@ -37,10 +38,24 @@ export const postChallenge = (
   return api
     .post(`criarDesafio/`, data)
     .then((response) => {
+      const useChallenge = useChallengeContext();
+      useChallenge.setNewChallenge(true);
       return response.data;
     })
     .catch((error) => {
-      console.log(JSON.stringify(error));
+      console.error(error);
+      return error;
+    });
+};
+
+// Função para obter todos os desafios pelo ID
+export const deleteChallengeById = (challengeId) => {
+  return api
+    .delete(`deletarDesafio/` + challengeId)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
       return error;
     });
 };
