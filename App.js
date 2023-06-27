@@ -18,6 +18,7 @@ import CreateChallenge from "./layouts/CreateChallenge";
 import Home from "./layouts/Home";
 import ChallengeInfo from "./layouts/ChallengeInfo";
 import ChallengeRecords from "./layouts/ChallengeRecords";
+import CreateAccount from "./layouts/CreateAccount";
 import { ChallengeProvider } from "./contexts/ChallengeContext";
 import { WeightContextProvider } from "./contexts/WeighingContext";
 import { UserContextProvider } from "./contexts/UserContext";
@@ -88,6 +89,11 @@ export default function App() {
           <NavigationContainer>
             <Stack.Navigator>
               <Stack.Screen
+                name="Login"
+                component={Login}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
                 name="Home"
                 component={TabNavigator}
                 options={{ headerShown: false }}
@@ -100,11 +106,6 @@ export default function App() {
               <Stack.Screen
                 name="ScaleConnection"
                 component={ScaleConnection}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Login"
-                component={Login}
                 options={{ headerShown: false }}
               />
               <Stack.Screen
@@ -125,6 +126,11 @@ export default function App() {
               <Stack.Screen
                 name="ChallengeRecords"
                 component={ChallengeRecords}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="CreateAccount"
+                component={CreateAccount}
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>

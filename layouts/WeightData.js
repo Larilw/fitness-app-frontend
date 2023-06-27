@@ -18,9 +18,10 @@ export default function App({ navigation }) {
   const WeightImage = require("../assets/jumpingManBlue2.png");
 
   useEffect(() => {
-    BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
+    BluetoothSerial.connectToDevice("3C:71:BF:AA:C2:CA")
       .then((balanca) => {
         balanca.onDataReceived((teste) => {
+          //console.log(teste);
           const currentWasRead = wasReadRef.current;
           if (!currentWasRead) {
             setWasRead(true);

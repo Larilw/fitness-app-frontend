@@ -73,8 +73,11 @@ export default function ScaleConnection({ navigation }) {
           borderRadius: 50,
         }}
         onPress={() => {
-          BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
+          BluetoothSerial.connectToDevice("3C:71:BF:AA:C2:CA")
             .then((balanca) => {
+              balanca.read().then((entrada) => {
+                console.log(entrada);
+              });
               setIsEnabled(true);
               setConnection("Conectado");
             })

@@ -12,6 +12,9 @@ export default function App({ navigation }) {
   const kgImage = require("../assets/kgImage.png");
   const cmImage = require("../assets/cmImage.png");
 
+  const [userName, setUserName] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [userWeight, setUserWeight] = useState();
   const [userHeight, setUserHeight] = useState();
   const [userDate, setUserDate] = useState(new Date());
@@ -42,8 +45,42 @@ export default function App({ navigation }) {
   return (
     <View style={styles.container}>
       <Image source={LoginImage} style={styles.image} />
-      <Text style={styles.mainText}>Vamos completar seu cadastro</Text>
+      <Text style={styles.mainText}>Cadastre-se</Text>
       <Text style={styles.subtext}>Isso nos ajuda a calcular seu IMC</Text>
+      <TextInput
+        variant="standard"
+        style={styles.input}
+        inputContainerStyle={{ borderRadius: 15 }}
+        inputStyle={{ borderRadius: 15 }}
+        label="Nome"
+        value={userName}
+        onChangeText={setUserName}
+        leading={(props) => (
+          <Icon name="file-document-edit-outline" {...props} />
+        )}
+      />
+      <TextInput
+        variant="standard"
+        style={styles.input}
+        inputContainerStyle={{ borderRadius: 15 }}
+        inputStyle={{ borderRadius: 15 }}
+        label="Senha"
+        value={userPassword}
+        onChangeText={setUserPassword}
+        secureTextEntry
+        leading={(props) => <Icon name="eye-off" {...props} />}
+      />
+      <TextInput
+        variant="standard"
+        style={styles.input}
+        inputContainerStyle={{ borderRadius: 15 }}
+        inputStyle={{ borderRadius: 15 }}
+        label="Confirme sua senha"
+        value={passwordConfirmation}
+        onChangeText={setPasswordConfirmation}
+        secureTextEntry
+        leading={(props) => <Icon name="eye-off" {...props} />}
+      />
       <DropDownPicker
         style={{
           left: 45,
