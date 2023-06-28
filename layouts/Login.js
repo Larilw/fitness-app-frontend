@@ -1,36 +1,21 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import { SocialIcon, Button } from "react-native-elements";
+import { Button } from "react-native-elements";
 import { TextInput } from "@react-native-material/core";
 import { useState } from "react";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import "expo-dev-client";
+import * as Crypto from "expo-crypto";
+import useUserContext from "../hooks/useUserContext";
 
-import { NavigationContainer } from "@react-navigation/native";
-
-import * as WebBrowser from "expo-web-browser";
-import * as Google from "expo-auth-session/providers/google";
-import * as Linking from "expo-linking";
-import * as AuthSession from "expo-auth-session";
-
-import LoginButton from "../components/LoginButton";
-import { useEffect } from "react";
-
-import clienteLogin from "../clients/login";
-
-//        promptAsync={promptAsync}
+import { getUserByEmailAndPassword } from "../clients/user";
 
 export default function App({ navigation }) {
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId:
-      "751146957624-b0m659l5gpf9m257v0qg2234slj90ovk.apps.googleusercontent.com",
-    expoClientId:
-      "751146957624-s1r8bprihc982tn5c8bej0vsectn4264.apps.googleusercontent.com",
-  });
-
   const LoginImage = require("../assets/group.png");
   const Logo = require("../assets/logo_white.png");
-  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+
+  const userContext = useUserContext();
 
   return (
     <View style={styles.container}>
@@ -41,12 +26,10 @@ export default function App({ navigation }) {
         style={styles.input}
         inputContainerStyle={{ borderRadius: 15 }}
         inputStyle={{ borderRadius: 15 }}
-        label="Nome"
-        value={userName}
-        onChangeText={setUserName}
-        leading={(props) => (
-          <Icon name="file-document-edit-outline" {...props} />
-        )}
+        label="Email"
+        value={userEmail}
+        onChangeText={setUserEmail}
+        leading={(props) => <Icon name="email-variant" {...props} />}
       />
       <TextInput
         variant="standard"
@@ -57,7 +40,7 @@ export default function App({ navigation }) {
         value={userPassword}
         onChangeText={setUserPassword}
         secureTextEntry
-        leading={(props) => <Icon name="eye-off" {...props} />}
+        leading={(props) => <Icon name="lock" {...props} />}
       />
       <Button
         title="Login"
@@ -71,8 +54,25 @@ export default function App({ navigation }) {
         }}
         buttonStyle={{ backgroundColor: "#c2a1ed" }}
         onPress={() => {
-          //Checar login com o back
-          navigation.navigate("Home");
+          Crypto.digestStringAsync(
+            Crypto.CryptoDigestAlgorithm.SHA256,
+            userPassword
+          ).then((senhaCriptografada) => {
+            //Chamar o back com o email + senha
+            if (userEmail != "" && userPassword != "") {
+              console.log(senhaCriptografada);
+              getUserByEmailAndPassword(userEmail, senhaCriptografada).then(
+                (response) => {
+                  if (response == "") {
+                    alert("Email ou senha incorretos");
+                  } else {
+                    userContext.setUser(response);
+                    navigation.navigate("Home");
+                  }
+                }
+              );
+            } else alert("Verifique se os campos estão preenchidos");
+          });
         }}
       />
       <Button
@@ -89,26 +89,6 @@ export default function App({ navigation }) {
         }}
         buttonStyle={{ backgroundColor: "#fff" }}
         titleStyle={{ color: "#c2a1ed" }}
-      />
-      <SocialIcon
-        title={"Login com Google"}
-        button
-        light
-        type="google"
-        fontStyle={{ color: "black" }}
-        iconStyle={{ color: "black" }}
-        style={{ width: "85%", marginTop: 10, height: 60 }}
-        disabled={!request}
-        onPress={() => {
-          promptAsync()
-            .then((resposta) => {
-              if (resposta.type === "success") {
-                console.log(resposta.params.code);
-                alert("Erro no login, tente novamente mais tarde");
-              }
-            })
-            .catch((error) => error);
-        }}
       />
       <Image source={LoginImage} style={styles.image} />
     </View>

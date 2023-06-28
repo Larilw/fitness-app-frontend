@@ -44,31 +44,6 @@ export default function App({ navigation }) {
       <Image source={LoginImage} style={styles.image} />
       <Text style={styles.mainText}>Vamos completar seu cadastro</Text>
       <Text style={styles.subtext}>Isso nos ajuda a calcular seu IMC</Text>
-      <DropDownPicker
-        style={{
-          left: 45,
-          top: -50,
-          backgroundColor: "#f4f5f5",
-          borderColor: "#f4f5f5",
-          borderRadius: 10,
-          width: 305,
-          height: 60,
-        }}
-        dropDownContainerStyle={{
-          top: 10,
-          left: 45,
-          width: 305,
-          backgroundColor: "#f4f5f5",
-          borderColor: "#f4f5f5",
-        }}
-        placeholder="Gênero"
-        open={open}
-        value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        setItems={setItems}
-      />
       {showPicker && (
         <DateTimePicker
           mode="date"

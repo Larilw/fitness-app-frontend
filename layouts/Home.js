@@ -17,7 +17,7 @@ import * as WebBrowser from "expo-web-browser";
 import useChallengeContext from "../hooks/useChallengeContext";
 import useWeighingContext from "../hooks/useWeighingContext";
 import { getWeighingsByUserId } from "../clients/weighing";
-import { getUserByLoginId } from "../clients/user";
+import { getUserByEmail, getUserByLoginId } from "../clients/user";
 import useUserContext from "../hooks/useUserContext";
 
 function ColorLegend({ data }) {
@@ -45,9 +45,9 @@ export default function App({ navigation }) {
   const challengeContext = useChallengeContext();
   const weighingContext = useWeighingContext();
   const userContext = useUserContext();
-  const userId = 2;
+  const userId = userContext.user.id;
   const screenWidth = Dimensions.get("window").width;
-  let username = "Larissa Wong";
+  let username = userContext.user.nome;
   const [imc, setImc] = useState(0);
 
   const getImcLevel = (valor) => {
@@ -97,7 +97,7 @@ export default function App({ navigation }) {
   });
 
   useEffect(() => {
-    getUserByLoginId(2442)
+    getUserByEmail(userContext.user.email)
       .then((user) => {
         userContext.setUser(user);
       })
@@ -116,45 +116,48 @@ export default function App({ navigation }) {
 
       getWeighingsByUserId(userId)
         .then((weighings) => {
-          weighingContext.setWeighings(weighings);
-          const pesagensOrdenadas = weighings.sort((a, b) => {
-            return a.dataPesagem - b.dataPesagem;
-          });
-          const ultimaPesagem = pesagensOrdenadas[pesagensOrdenadas.length - 1];
-          const altura = userContext.user.altura / 100;
-          setImc(ultimaPesagem.peso / (altura * altura));
-          getImcLevel(imc);
+          if (weighings.length >= 1) {
+            weighingContext.setWeighings(weighings);
+            const pesagensOrdenadas = weighings.sort((a, b) => {
+              return a.dataPesagem - b.dataPesagem;
+            });
+            const ultimaPesagem =
+              pesagensOrdenadas[pesagensOrdenadas.length - 1];
+            const altura = userContext.user.altura / 100;
+            setImc(ultimaPesagem.peso / (altura * altura));
+            getImcLevel(imc);
 
-          const dataImc = {
-            labels: ["IMC - Referência", "IMC Atual"],
-            data: [[18.5, 6.5, 5, 5, 5, 5], createImcArray(imc)],
-            barColors: [
-              "#a1dcf7",
-              "#a2f7a1",
-              "#eef7a1",
-              "#f7d7a1",
-              "#f7bea1",
-              "#f7a1a1",
-            ],
-          };
-          setDataStackedBarChart(dataImc);
+            const dataImc = {
+              labels: ["IMC - Referência", "IMC Atual"],
+              data: [[18.5, 6.5, 5, 5, 5, 5], createImcArray(imc)],
+              barColors: [
+                "#a1dcf7",
+                "#a2f7a1",
+                "#eef7a1",
+                "#f7d7a1",
+                "#f7bea1",
+                "#f7a1a1",
+              ],
+            };
+            setDataStackedBarChart(dataImc);
 
-          const newData = {
-            labels: [],
-            datasets: [
-              {
-                data: weighings.map((weighting) => weighting.peso),
-                color: (opacity = 1) => `rgba(88, 134, 209, ${opacity})`,
-                strokeWidth: 2,
-              },
-            ],
-            legend: ["Pesagens"],
-          };
-          setDataLineChart(newData);
+            const newData = {
+              labels: [],
+              datasets: [
+                {
+                  data: weighings.map((weighting) => weighting.peso),
+                  color: (opacity = 1) => `rgba(88, 134, 209, ${opacity})`,
+                  strokeWidth: 2,
+                },
+              ],
+              legend: ["Pesagens"],
+            };
+            setDataLineChart(newData);
+          }
         })
         .catch((error) => console.error(error));
     }
-  }, [userContext.user, challengeContext.challenges]);
+  }, [userContext.user, challengeContext.newChallenge]);
 
   useEffect(() => {}, []);
 

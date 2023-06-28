@@ -2,6 +2,7 @@ import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 import { StyleSheet, View, Pressable } from "react-native";
 import { postChallenge } from "../clients/challenge";
+import useChallengeContext from "../hooks/useChallengeContext";
 
 export default function AddButton({
   label,
@@ -14,8 +15,16 @@ export default function AddButton({
   weightLoss,
   userId,
 }) {
+  const useChallenge = useChallengeContext();
   const onPress = () => {
-    postChallenge(dateEnd, dateBegin, title, description, weightLoss, userId);
+    postChallenge(
+      dateBegin,
+      dateEnd,
+      title,
+      description,
+      weightLoss,
+      userId
+    ).then(() => useChallenge.setNewChallenge(!useChallenge.newChallenge));
     setSnackBarOpen(true);
   };
   if (theme === "primary") {

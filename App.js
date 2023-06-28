@@ -68,15 +68,27 @@ const TabNavigator = () => {
           ),
         }}
       />
+      {/*
       <Tab.Screen
-        name="LogoutTab"
-        component={CreateChallenge}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="logout" color={color} size={26} />
           ),
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => {
+                console.log("clicou");
+              }}
+            >
+              <Text>Home</Text>
+            </TouchableOpacity>
+          ),
         }}
+        name="LogoutTab"
+        component={Login}
       />
+      */}
     </Tab.Navigator>
   );
 };
