@@ -61,13 +61,15 @@ export default function App({ navigation }) {
             //Chamar o back com o email + senha
             if (userEmail != "" && userPassword != "") {
               console.log(senhaCriptografada);
-              getUserByEmailAndPassword(userEmail, senhaCriptografada).then(
+              getUserByEmailAndPassword(userEmail, userPassword).then(
                 (response) => {
                   if (response == "") {
                     alert("Email ou senha incorretos");
                   } else {
                     userContext.setUser(response);
                     navigation.navigate("Home");
+                    setUserEmail("");
+                    setUserPassword("");
                   }
                 }
               );

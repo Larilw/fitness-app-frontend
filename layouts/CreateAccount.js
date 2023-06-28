@@ -75,9 +75,7 @@ export default function App({ navigation }) {
               label="Nome"
               value={userName}
               onChangeText={setUserName}
-              leading={(props) => (
-                <Icon name="file-document-edit-outline" {...props} />
-              )}
+              leading={(props) => <Icon name="account" {...props} />}
             />
             <TextInput
               variant="standard"
@@ -87,9 +85,7 @@ export default function App({ navigation }) {
               label="Email"
               value={userEmail}
               onChangeText={setUserEmail}
-              leading={(props) => (
-                <Icon name="file-document-edit-outline" {...props} />
-              )}
+              leading={(props) => <Icon name="email" {...props} />}
             />
             <TextInput
               variant="standard"
@@ -100,7 +96,7 @@ export default function App({ navigation }) {
               value={userPassword}
               onChangeText={setUserPassword}
               secureTextEntry
-              leading={(props) => <Icon name="eye-off" {...props} />}
+              leading={(props) => <Icon name="lock" {...props} />}
             />
             <TextInput
               variant="standard"
@@ -111,7 +107,7 @@ export default function App({ navigation }) {
               value={passwordConfirmation}
               onChangeText={setPasswordConfirmation}
               secureTextEntry
-              leading={(props) => <Icon name="eye-off" {...props} />}
+              leading={(props) => <Icon name="lock" {...props} />}
             />
             {showPicker && (
               <DateTimePicker
@@ -150,7 +146,7 @@ export default function App({ navigation }) {
                 value={userWeight}
                 keyboardType="number-pad"
                 onChangeText={setUserWeight}
-                leading={(props) => <Icon name="pencil" {...props} />}
+                leading={(props) => <Icon name="weight-kilogram" {...props} />}
               />
               <Image source={kgImage} style={styles.smallImage} />
             </View>
@@ -164,7 +160,9 @@ export default function App({ navigation }) {
                 value={userHeight}
                 keyboardType="number-pad"
                 onChangeText={setUserHeight}
-                leading={(props) => <Icon name="pencil" {...props} />}
+                leading={(props) => (
+                  <Icon name="human-male-height" {...props} />
+                )}
               />
               <Image source={cmImage} style={styles.smallImage} />
             </View>

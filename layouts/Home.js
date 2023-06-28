@@ -9,6 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import { LineChart, StackedBarChart } from "react-native-chart-kit";
 import { Dimensions, ScrollView } from "react-native";
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 import CardChallenge from "../components/CardChallenge";
 import challengeClient, { getChallengesByUserId } from "../clients/challenge";
@@ -16,9 +17,9 @@ import challengeClient, { getChallengesByUserId } from "../clients/challenge";
 import * as WebBrowser from "expo-web-browser";
 import useChallengeContext from "../hooks/useChallengeContext";
 import useWeighingContext from "../hooks/useWeighingContext";
+import useUserContext from "../hooks/useUserContext";
 import { getWeighingsByUserId } from "../clients/weighing";
 import { getUserByEmail, getUserByLoginId } from "../clients/user";
-import useUserContext from "../hooks/useUserContext";
 
 function ColorLegend({ data }) {
   const texto = [
@@ -44,6 +45,7 @@ function ColorLegend({ data }) {
 export default function App({ navigation }) {
   const challengeContext = useChallengeContext();
   const weighingContext = useWeighingContext();
+  const weightContext = useWeighingContext();
   const userContext = useUserContext();
   const userId = userContext.user.id;
   const screenWidth = Dimensions.get("window").width;
@@ -52,14 +54,18 @@ export default function App({ navigation }) {
 
   const getImcLevel = (valor) => {
     const range = [18.5, 25, 30, 35, 40, 45];
-    let res = 5;
+    let res = 0;
     range.forEach((imc, index) => {
-      if (valor <= imc) res = index;
+      if (imc < valor) {
+        res = index;
+        console.log("entrou", imc);
+      }
     });
-    return res;
+    return res + 1;
   };
 
   const createImcArray = (imc) => {
+    console.log(imc);
     const index = getImcLevel(imc);
     const array = [0, 0, 0, 0, 0, 0];
     if (imc != NaN) {
@@ -157,7 +163,12 @@ export default function App({ navigation }) {
         })
         .catch((error) => console.error(error));
     }
-  }, [userContext.user, challengeContext.newChallenge]);
+  }, [
+    userContext.user,
+    challengeContext.newChallenge,
+    weightContext.newWeight,
+    imc,
+  ]);
 
   useEffect(() => {}, []);
 
@@ -194,9 +205,24 @@ export default function App({ navigation }) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.welcomeText}>
-        <Text style={styles.title}>Olá,</Text>
-        <Text style={styles.username}>{username}</Text>
+      <View style={{ flexDirection: "row", paddingLeft: 20, paddingRight: 20 }}>
+        <View style={styles.welcomeText}>
+          <Text style={styles.title}>Olá,</Text>
+          <Text style={styles.username}>{username}</Text>
+        </View>
+        <Pressable
+          style={{
+            marginTop: 30,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={() => {
+            userContext.setUser();
+            navigation.navigate("Login");
+          }}
+        >
+          <Icon name="logout" style={{ fontSize: 24 }} />
+        </Pressable>
       </View>
       <LineChart
         style={styles.linechart}

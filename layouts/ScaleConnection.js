@@ -74,7 +74,7 @@ export default function ScaleConnection({ navigation }) {
         }}
         onPress={() => {
           //3C:71:BF:AA:C2:CA
-          BluetoothSerial.connectToDevice("CC:71:BF:AA:C2:CA")
+          BluetoothSerial.connectToDevice("CC:50:E3:9A:08:8A")
             .then((balanca) => {
               balanca.read().then((entrada) => {
                 console.log(entrada);

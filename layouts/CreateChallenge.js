@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TextInput, Snackbar, Button } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import useUserContext from "../hooks/useUserContext";
 
 import AddButton from "../components/AddButton";
 
@@ -15,6 +16,7 @@ export default function App({ navigation }) {
   const [description, setDescription] = useState("");
   const [weightLoss, setWeightLoss] = useState("");
   const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const userContext = useUserContext();
 
   const toggleDatepicker1 = () => {
     setShowPicker1(!showPicker1);
@@ -163,9 +165,8 @@ export default function App({ navigation }) {
         description={description}
         dateBegin={date1.getTime()}
         dateEnd={date2.getTime()}
-        //Arrumar o id depois
         weightLoss={weightLoss}
-        userId={2}
+        userId={userContext.user.id}
       />
     </View>
   );
